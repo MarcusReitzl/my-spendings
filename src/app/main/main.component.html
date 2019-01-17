@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="row">
+
+      <canvas #lineChart>{{chart}}
+      </canvas>
+
+    </div>
+  
+  <hr>
+  <div class="row">
+    <div class="col-sm-2"><label>Betrag:</label></div>
+    <input type="number" name="" id="" value="0.0" #inputNumber>
+  </div>
+
+  <div class="row">
+      <div class="col-sm-2"><label>Buchungstext:</label></div>
+    <input type="text" name="" id="" value="Name" #inputText>
+
+  </div>
+
+  <div class="row">
+      <div class="col-sm-2"><label>Kategorie:</label></div>
+    <select #inputKategorie>
+          <option *ngFor="let kat of categorieArray" [value] = "kat">
+          {{ kat }}
+        </option>
+    </select>
+  </div>
+  <div class="row">
+    <button class="btn btn-danger"  (click)="onAddAusgaben(inputText, inputNumber, inputKategorie)">Ausgaben</button>
+    <button class="btn btn-primary"  (click) ="onAddEinnahmen(inputText, inputNumber, inputKategorie)">Einnahmen</button> 
+  </div>
+  <hr>
+  <div class="row">
+    <p *ngIf="bookingResponse" >{{ bookingResponse }}</p>
+  </div>
+</div>

@@ -1,0 +1,54 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4">
+      <label for="">von: </label>
+      <input type="date" name="" id="" #inputFromDate>
+    </div>
+    
+    <div class="col-sm-4">
+      <label for="">bis: </label>
+      <input type="date" name="" id="" #inputToDate>
+    </div>
+
+    <div class="col-sm-6">
+      <label for="">Kategorie: </label>
+      <select #inputSelKat>
+        <option value = "unselected"> Auswählen </option>
+        <option *ngFor="let kat of categorieArray" [value] = "kat">
+          {{ kat }}
+        </option>
+    </select>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-5">
+      <button class="btn btn-primary" (click)="onSetFilter(inputFromDate, inputToDate, inputSelKat)">Set Filter</button>
+      <button class="btn btn-danger" (click)="onClearFilter()">Clear Filter</button>
+    </div>
+   </div>
+  
+   <hr>
+  
+   <ng-container *ngIf="showFilter === false">
+  
+    <div class="row" *ngFor="let booking of bookings" [ngStyle]='{color: booking.type === "Einnahmen" ? "green" : "red" }'>
+    <div class="col-sm-2"> {{ booking.id }} </div>
+    <div class="col-sm-2"> {{ booking.date }} </div>
+    <div class="col-sm-2"> {{ booking.text }} </div>
+    <div class="col-sm-2"> {{ booking.value }} € </div>
+    <div class="col-sm-2"> {{ booking.kategorie }} </div>
+  </div>
+  </ng-container>
+
+  <ng-container *ngIf="showFilter === true">
+  <div class="row" *ngFor="let booking of filterBookings" [ngStyle]='{color: booking.type === "Einnahmen" ? "green" : "red" }'>
+    <div class="col-sm-2"> {{ booking.id }} </div>
+    <div class="col-sm-2"> {{ booking.date }} </div>
+    <div class="col-sm-2"> {{ booking.text }} </div>
+    <div class="col-sm-2"> {{ booking.value }} € </div>
+    <div class="col-sm-2"> {{ booking.kategorie }} </div>
+  </div>
+  </ng-container>
+
+</div>

@@ -1,0 +1,47 @@
+<div class="container">
+  
+    <div class="row">
+      <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2"><h3>Budget hinzufügen:</h3></div>
+    </div>
+    
+    <div class="row">
+      <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+        <label>Bezeichnung:</label>
+        <input type="text" #inputBudName>
+      </div>
+      <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+        <label>Betrag:</label>
+        <input type="number" #inputBudAmount>
+      </div>
+      <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+        <button class="btn btn-primary" (click)="onAddBudget(inputBudName, inputBudAmount)">Hinzufügen</button>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-8 col-md-8 col-sm-offset-5 col-md-offset-0"><hr width="70%"></div>
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+          <label> Derzeitige Budget-Einstellungen: </label>
+        </div>
+        <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+          <p *ngIf="budgets.length === 0 "> Hier könnte Ihr Budget stehen! </p>
+        
+        <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-0">
+        
+          <div class="list-group" *ngIf="budgets !== null">
+         
+          <a
+          [routerLink]="['budget', budget.budgetId]"
+          class="list-group-item"
+          *ngFor="let budget of budgets">
+           {{ budget.budgetName }}
+          </a>
+
+      </div>
+      </div>
+    </div>
+      <div class="col-xs-12 col-sm-8 col-md-8 col-sm-offset-5 col-md-offset-0"><hr width="70%"></div>
+  
+     
+  </div>
+  

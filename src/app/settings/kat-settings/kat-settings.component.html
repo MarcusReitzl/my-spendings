@@ -1,0 +1,42 @@
+<div class="container">
+  
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2"><h3>Kategorie hinzufügen:</h3></div>
+  </div>
+  
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <label>Bezeichnung:</label>
+      <input type="text" #inputKategorie>
+    </div>
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <button class="btn btn-primary" (click)="onAddCat(inputKategorie)">Hinzufügen</button>
+      
+    </div>
+    <div class="col-xs-12 col-sm-8 col-md-8 col-sm-offset-5 col-md-offset-0"><hr width="70%"></div>
+      
+    
+    
+  </div>
+ 
+  <div class="row">
+      <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2"><h3>Kategorie entfernen:</h3></div>   
+  </div>
+    
+    <div class="row">
+      <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+        <label>Kategorie:</label>
+        
+        <select #inputSelKat>
+          <option value = "unselected"> Auswählen </option>
+          <option *ngFor="let kat of categories" [value] = "kat">
+            {{ kat }}
+          </option>
+        </select>
+     </div>
+     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+        <button class="btn btn-danger" (click)="onDelCategorie(inputSelKat)">Löschen</button>
+      </div>
+    </div>
+   
+</div>

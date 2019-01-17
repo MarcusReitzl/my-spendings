@@ -1,0 +1,22 @@
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+      <div class="navbar-header">
+          <a href="#" class="navbar-brand" 
+          routerLinkActive="active" 
+          [routerLinkActiveOptions]="{exact: true}" 
+          routerLink="/">MySpendings</a>
+      </div>
+      <div class="navbar-default">
+          <ul class="nav navbar-nav">
+              <li><a href="#" routerLink="bookings">Buchungen</a></li>
+              <li><a href="#" routerLink="statistics">Statistik</a></li>
+              <li><a href="#" (click)="onShowComponent('finanz')">Finanzübersicht</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#" routerLink="">Anmelden</a></li>
+            <li><a href="#" routerLink="">Registrieren</a></li>
+            <li><a href="#" routerLink="settings">Einstellungen</a></li>
+          </ul>
+      </div>
+  </div>
+</nav>
