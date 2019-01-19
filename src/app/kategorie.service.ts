@@ -23,7 +23,6 @@ addOutcome(categorie, amount){
         if(cat.name === categorie){
             cat.value += parseInt(amount);
             console.log(cat.value);
-            
             this.valueChanged.next(this.categorie);
         }
     }

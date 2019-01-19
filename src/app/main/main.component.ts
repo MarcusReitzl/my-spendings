@@ -1,8 +1,10 @@
-import {Component, OnInit, Input, ViewChild} from '@angular/core';
-import {BookingService} from '../booking.service';
-import {KategorieService} from '../kategorie.service';
-import {Chart} from 'chart.js';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { BookingService } from '../booking.service';
+import { KategorieService } from '../kategorie.service';
+import { Chart } from 'chart.js';
 import { Categorie } from '../shared/categorie.model';
+import { ServerService } from '../server.service';
+
 
 @Component({
   selector: 'app-main',
@@ -19,18 +21,15 @@ export class MainComponent implements OnInit {
   
 
 
-  constructor(private bookingservice: BookingService, private kategorieservice: KategorieService) {
+  constructor(private bookingservice: BookingService, private kategorieservice: KategorieService, private serverService: ServerService) {
   }
 
   ngOnInit() {
 
+    
+
     this.categorieArray = this.kategorieservice.getCategorie();
-
-    for(let i = 0; i < this.categorieArray.length;i++){
-      this.labels[i] = this.categorieArray[i].name;
-      this.data[i] = this.categorieArray[i].value;
-    }
-
+    this.prepareArray();
 
     this.chart = new Chart(this.chartRef.nativeElement, {
       type: 'pie',
@@ -50,13 +49,8 @@ export class MainComponent implements OnInit {
     this.kategorieservice.valueChanged
     .subscribe(
       (categorie: Categorie[])=>{
-        for(let i = 0; i < this.categorieArray.length;i++){
-          this.labels[i] = this.categorieArray[i].name;
-          this.data[i] = this.categorieArray[i].value;
-        }
-
-       this.chart.update(); 
-    
+       this.prepareArray();
+       this.chart.update();     
       }
     ) 
   }
@@ -66,6 +60,7 @@ export class MainComponent implements OnInit {
     this.bookingservice.onAddNew(inputText.value, inputNumber.value, 'Ausgaben', inputKategorie.value);
     this.bookingResponse = "Ausgang: " + inputText.value + " mit der Kategorie " + inputKategorie.value + " verbucht."
     this.kategorieservice.addOutcome(inputKategorie.value, inputNumber.value);
+    
   };  
 
   onAddEinnahmen(inputText, inputNumber, inputKategorie) {
@@ -74,5 +69,10 @@ export class MainComponent implements OnInit {
     
   };
 
-
+  prepareArray(){
+    for(let i = 0; i < this.categorieArray.length;i++){
+      this.labels[i] = this.categorieArray[i].name;
+      this.data[i] = this.categorieArray[i].value;
+    }
+  }
 }

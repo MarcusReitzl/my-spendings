@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { Response } from '@angular/http';
+
 import { Booking } from '../shared/booking.model';
 import { BookingService } from '../booking.service';
 import { KategorieService } from '../kategorie.service';
-import { Button } from 'protractor';
 import { Categorie } from '../shared/categorie.model';
+import { ServerService } from '../server.service';
 
 @Component({
   selector: 'app-booking',
@@ -17,11 +19,13 @@ export class BookingsComponent implements OnInit {
   showFilter: boolean = false;
 
 
-  constructor(private bookingService: BookingService, private kategorieService: KategorieService) { }
+  constructor(private bookingService: BookingService, private kategorieService: KategorieService, private serverService: ServerService) { }
 
   ngOnInit() {
     this.bookings = this.bookingService.getBookings(); 
     this.categorieArray = this.kategorieService.getCategorie();
+
+   
   }
 
   onSetFilter(inputFromDate, inputToDate, inputSelKat){
@@ -114,4 +118,23 @@ export class BookingsComponent implements OnInit {
       this.showFilter = false;
       this.filterBookings = [];  
   }  
+
+  onSaveBookings(){
+    // this.serverService.putBookings(this.bookings).subscribe(
+    //   (response: Response) => (console.log(response)),
+    //   (error) => (console.log(error))
+      
+    // );
+  }
+
+  onGetBookings(){
+    this.serverService.initialRequest().subscribe(
+      (response:Response) => {
+      const data = response.json();
+      this.bookings = data;
+      this.bookingService.setBookings(data);
+    },
+      (error) => {console.log(error);}
+     );
+  }
 }

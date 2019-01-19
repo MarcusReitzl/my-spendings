@@ -19,10 +19,14 @@ import { KatSettingsComponent } from './settings/kat-settings/kat-settings.compo
 import { BudgetSettingsComponent } from './settings/budget-settings/budget-settings.component';
 import { BudgetComponent } from './settings/budget-settings/budget/budget.component';
 import { BudgetService } from './budget.service';
+import { ServerService } from './server.service';
+import { HttpModule } from '@angular/http';
 
 
 const appRoutes: Routes = [
-{ path: "", component: MainComponent },
+{ path: "", redirectTo:"login", pathMatch: "full"},
+{ path: "login", component: LoginComponent},
+{ path: "main", component: MainComponent },
 { path: "bookings", component: BookingsComponent },
 { path: "statistics", component: StatisticsComponent },
 { path: "settings", component: SettingsComponent, children:[
@@ -47,14 +51,16 @@ const appRoutes: Routes = [
     KatSettingsComponent,
     BudgetSettingsComponent,
     BudgetComponent,
+    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     RouterModule.forRoot(appRoutes),
+    HttpModule
 
   ],
-  providers: [BookingService, KategorieService, BudgetService],
+  providers: [BookingService, KategorieService, BudgetService, ServerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
