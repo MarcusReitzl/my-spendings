@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { KategorieService } from 'src/app/kategorie.service';
+import { Categorie } from 'src/app/shared/categorie.model';
 
 @Component({
   selector: 'app-kat-settings',
@@ -7,7 +8,7 @@ import { KategorieService } from 'src/app/kategorie.service';
   styleUrls: ['./kat-settings.component.css']
 })
 export class KatSettingsComponent implements OnInit {
-  categories: string [];
+  categories: Categorie [];
 
   constructor(private katService: KategorieService) { }
 
@@ -26,7 +27,7 @@ export class KatSettingsComponent implements OnInit {
       return;
     }else if(confirm("Sind sie sicher das sie die Kategorie " + inputSelKat.value + " wirklich löschen möchten?")){
       for(let i = 0; i < this.categories.length; i++){
-        if(this.categories[i] === inputSelKat.value){
+        if(this.categories[i].name === inputSelKat.value){
           this.categories.splice(i,1);
         }
       }

@@ -3,6 +3,7 @@ import { BudgetService } from 'src/app/budget.service';
 import { Budget } from 'src/app/shared/budget.model';
 import { ActivatedRoute } from '@angular/router';
 import { KategorieService } from 'src/app/kategorie.service';
+import { Categorie } from 'src/app/shared/categorie.model';
 
 @Component({
   selector: 'app-budget',
@@ -11,7 +12,7 @@ import { KategorieService } from 'src/app/kategorie.service';
 })
 export class BudgetComponent implements OnInit {
   budget: Budget;
-  categories: string[] = [];
+  categories: Categorie[] = [];
   foundFlag: boolean = false;
   valueChanged: boolean = false;
 

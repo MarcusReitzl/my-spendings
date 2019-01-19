@@ -3,6 +3,7 @@ import { Booking } from '../shared/booking.model';
 import { BookingService } from '../booking.service';
 import { KategorieService } from '../kategorie.service';
 import { Button } from 'protractor';
+import { Categorie } from '../shared/categorie.model';
 
 @Component({
   selector: 'app-booking',
@@ -12,7 +13,7 @@ import { Button } from 'protractor';
 export class BookingsComponent implements OnInit {
   bookings: Booking[];
   filterBookings: Booking[] = [];
-  categorieArray: string[];
+  categorieArray: Categorie[];
   showFilter: boolean = false;
 
 

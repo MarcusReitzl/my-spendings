@@ -21,8 +21,8 @@
   <div class="row">
       <div class="col-sm-2"><label>Kategorie:</label></div>
     <select #inputKategorie>
-          <option *ngFor="let kat of categorieArray" [value] = "kat">
-          {{ kat }}
+          <option *ngFor="let kat of categorieArray" [value] = "kat.name">
+          {{ kat.name }}
         </option>
     </select>
   </div>
