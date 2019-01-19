@@ -9,7 +9,4 @@ export class AppComponent {
   component:string = 'main';
   title = 'my-Spendings';
 
-  setComponent(inputComponent){
-    this.component=inputComponent;
-  }
 }
