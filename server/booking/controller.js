@@ -1,7 +1,26 @@
 const model = require('./model');
 
 function listAction(request, response) {
-  response.send(model.getAllBookings());
+  model.getAllBookings(1).then(
+    bookings => {
+
+      if(bookings.length < 1){
+        response.status(401).json({message:"keine Buchungen vorhanden"});
+
+      }
+      else{
+        /*const bookingsResponse = {
+          bookings,
+          links: [{rel: 'self', href: request.baseUrl + '/'}],
+        }; */
+        response.status(200).json(bookings);
+
+
+      }
+    },
+    error => response.send(error),
+
+  );
 }
 function deleteAction(request, response) {
   let id = parseInt(request.params.id, 10);

@@ -1,5 +1,5 @@
 const Router = require('express').Router;
-const {listAction, deleteAction} = require('./controller');
+const {listAction, deleteAction,formAction,saveAction} = require('./controller');
 
 const router = Router();
 

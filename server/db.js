@@ -1,4 +1,4 @@
-let cfg = require('./config.json')
+let cfg = require('./config.json');
 let mysql = require('mysql');
 
 let _db;
