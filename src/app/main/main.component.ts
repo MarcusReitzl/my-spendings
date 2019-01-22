@@ -25,9 +25,6 @@ export class MainComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    
-
     this.categorieArray = this.kategorieservice.getCategorie();
     this.prepareArray();
 

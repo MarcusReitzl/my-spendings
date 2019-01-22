@@ -9,7 +9,7 @@ export class ServerService {
   constructor(private http: Http) { }
 
   initialRequest() {
-    return this.http.get('https://ng-http-15f7a.firebaseio.com/response.json');
+    return this.http.get('http://localhost:3000/booking');
   }
 
   putBookings(booking: Booking){

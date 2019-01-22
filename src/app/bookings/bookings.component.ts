@@ -133,6 +133,8 @@ export class BookingsComponent implements OnInit {
       const data = response.json();
       this.bookings = data;
       this.bookingService.setBookings(data);
+      console.log(data);
+      
     },
       (error) => {console.log(error);}
      );
