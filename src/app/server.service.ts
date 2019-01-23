@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { Booking} from './shared/booking.model'
 import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { Subject } from 'rxjs';
 
 
 @Injectable()
@@ -9,9 +10,14 @@ export class ServerService {
 baseurl = 'http://localhost:3000/';
 httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type' : 'application/json',
+    'Content-Type' : 'application/json'
+    
   })
 };
+loggedIn:boolean = false;
+name:string
+
+loggedInchanged = new Subject<Boolean>();
   
 
 
@@ -34,4 +40,19 @@ httpOptions = {
 
   postBudget(data){ return this.http.post(this.baseurl + 'budget/save', data, this.httpOptions); }
 
+  setToken(token:string){
+   this.httpOptions.headers = this.httpOptions.headers.set('Authorization', 'Bearer ' + token);
+     
+  }
+  toogleLoggedIn(){
+   this.loggedIn = !this.loggedIn;
+   this.loggedInchanged.next();
+  }
+  setName(firstname, lastname){
+    this.name = firstname + ' ' + lastname
+  }
+
+  getName(){ return this.name; }
+
+  getStatus(){ return this.loggedIn }
 }

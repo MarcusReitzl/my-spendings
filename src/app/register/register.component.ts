@@ -8,7 +8,7 @@ import { ɵangular_packages_platform_browser_platform_browser_d } from '@angular
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-
+  responseMessage:string;
   constructor(private serverService: ServerService) { }
 
   ngOnInit() {
@@ -26,7 +26,10 @@ export class RegisterComponent implements OnInit {
       }
 
       this.serverService.register(data).subscribe(
-        (response:Response) => (console.log(response)),
+        (response) =>  { 
+          let message = response['message']
+          this.responseMessage = message;
+        },
         (error) => (console.log(error))
         );
     }

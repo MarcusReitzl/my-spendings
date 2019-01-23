@@ -1,4 +1,5 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { ServerService } from '../server.service';
 
 @Component({
   selector: 'app-header',
@@ -6,11 +7,19 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  
+  loggedIn:boolean = false;
+  name:string;
 
-  constructor() { }
+  constructor(private serverService:ServerService) { }
 
   ngOnInit() {
+    this.serverService.loggedInchanged.subscribe(
+      ()=>{
+        this.loggedIn = this.serverService.getStatus();
+        this.name = this.serverService.getName();
+      }
+    )
+ 
   }
   
 

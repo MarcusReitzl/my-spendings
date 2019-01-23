@@ -10,11 +10,12 @@
           <ul class="nav navbar-nav">
               <li><a href="#" routerLink="bookings">Buchungen</a></li>
               <li><a href="#" routerLink="statistics">Statistik</a></li>
-              <li><a href="#" (click)="onShowComponent('finanz')">Finanzübersicht</a></li>
+              <!-- <li><a href="#" >Finanzübersicht</a></li> -->
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#" routerLink="login">Anmelden</a></li>
-            <li><a href="#" routerLink="register">Registrieren</a></li>
+            <li><a href="#" routerLink="login" *ngIf="loggedIn === false">Anmelden</a></li>
+            <li><a  *ngIf="loggedIn === true">{{ name }}</a></li>
+            <!-- <li><a href="#" routerLink="register" *ngIf="loggedIn === false">Registrieren</a></li> -->
             <li><a href="#" routerLink="settings">Einstellungen</a></li>
           </ul>
       </div>
