@@ -1,4 +1,5 @@
 const model = require('./model');
+const jwt = require('jsonwebtoken');
 
 
 function listAction(request, response) {
@@ -34,8 +35,22 @@ function formAction(request, response) {
 }
 
 function saveAction(request, response) {
-  let booking = request.body;
-  model.saveBooking(booking);
+  
+  //Verify the Token, Userdata in the payload
+
+  // jwt.verify(request.token, 'secretkey', (err, authData) => {
+  //   if(err) {
+  //     response.sendStatus(403);
+  //   } else {
+  //     // do something with the data
+  //     response.json({
+  //       authData
+  //     });
+  //   }
+  // });
+
+let booking = request.body;
+model.saveBooking(booking);
   
 }
 
