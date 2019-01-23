@@ -1,78 +1,37 @@
-<!-- <div class="container">
-  <form>
-  <div class="row">
-    <div class="col-sm-2"><label>Username:</label></div>
-    <input type="text" name="" id="" value="" #inputUserame>
-  </div>
-  <div class="row">
-    <div class="col-sm-2"><label>Vorname:</label></div>
-    <input type="text" name="" id="" value="" #inputFirstname>
-  </div>
-  <div class="row">
-    <div class="col-sm-2"><label>Nachname:</label></div>
-    <input type="text" name="" id="" value="" #inputLastname>
-  </div>
-  <div class="row">
-    <div class="col-sm-2"><label>Password:</label></div>
-    <input type="text" name="" id="" value="" #inputPassword>
-  </div>
-  <div class="row">
-    <div class="col-sm-2"><label>Password wiederholen:</label></div>
-    <input type="text" name="" id="" value="" #inputPasswordW>
-  </div>
-</form>
-    
-   
-    <br>
-    <div class="row">
-      <div class="col-sm-10">
-      <button (click)="onRegister()">Register</button>
-      </div>
-    </div>
-    <hr>
-<div class="row">
-  <div class="col-sm-10">
-    <p>Noch nicht registriert? <a href="" routerLink="/register">Click here!</a> </p>
-  </div>
-</div>
-
-</div> -->
-
-
 <form>
   <div class="row">
-    <div class="form-group col-md-6 col-md-offset-3">
+    <div class="form-group col-md-3 col-md-offset-3">
       <label for="exampleInputEmail1">Username</label>
       <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter Username" #inUsername required>
     </div>
   </div>
   <div class="row">
-    <div class="form-group col-md-6 col-md-offset-3">
+    <div class="form-group col-md-3 col-md-offset-3">
       <label for="exampleInputEmail1">Vorname</label>
       <input type="text" class="form-control" id="exampleInputFirstname" placeholder="Enter Firstname" #inFirstname required>
     </div>
   </div>
   <div class="row">
-    <div class="form-group col-md-6 col-md-offset-3">
+    <div class="form-group col-md-3 col-md-offset-3">
       <label for="exampleInputEmail1">Nachname</label>
       <input type="text" class="form-control" id="exampleInputLastname" placeholder="Enter Lastname" #inLastname required>
     </div>
   </div>
   <div class="row">  
-    <div class="form-group col-md-6 col-md-offset-3">
+    <div class="form-group col-md-3 col-md-offset-3">
       <label for="exampleInputPassword1">Password</label>
       <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" #inPassword required>
     </div>
   </div>
   <div class="row">
-    <div class="form-group col-md-6 col-md-offset-3">
+    <div class="form-group col-md-3 col-md-offset-3">
       <label for="exampleInputPassword2">Password wiederholen</label>
       <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password wiederholen" #inPasswordW required>
     </div>
   </div>
   
   <div class="row">
-    <div class="col-md-6 col-md-offset-3">
+    <div class="col-md-3 col-md-offset-3">
     <button type="submit" class="btn btn-primary" (click)="onRegister(inUsername, inFirstname, inLastname, inPassword, inPasswordW)">Submit</button>
     
   </div>

@@ -7,16 +7,26 @@
     <div class="row">
       <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
         <label>Bezeichnung:</label>
+        </div>
+        <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
         <input type="text" #inputBudName>
       </div>
+    </div>
+    <div class="row">
       <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
         <label>Betrag:</label>
+        </div>
+        <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
         <input type="number" #inputBudAmount>
       </div>
+    </div>
+    <br>
+    <div class="row">
       <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
         <button class="btn btn-primary" (click)="onAddBudget(inputBudName, inputBudAmount)">Hinzufügen</button>
       </div>
     </div>
+    
     <div class="col-xs-12 col-sm-8 col-md-8 col-sm-offset-5 col-md-offset-0"><hr width="70%"></div>
 
     <div class="row">

@@ -19,10 +19,10 @@ export class LoginComponent implements OnInit {
       'pass' : password.value
     }
 
-  this.serverService.login(data).subscribe(
-    (response:Response) => (console.log(response)),
-    (error) => (console.log(error))  
-  ); 
+    this.serverService.login(data).subscribe(
+      (response) => (this.serverService.httpOptions.headers.set('Authorization', JSON.stringify(response))),
+      (error) => (console.log(error))  
+    ); 
   }
 
 }

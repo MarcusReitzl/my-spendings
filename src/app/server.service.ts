@@ -10,7 +10,7 @@ baseurl = 'http://localhost:3000/';
 httpOptions = {
   headers: new HttpHeaders({
     'Content-Type' : 'application/json',
-    'Authorization' : 'my-auth-token'
+    
   })
 };
   
@@ -26,5 +26,9 @@ httpOptions = {
   login(data){ return this.http.post(this.baseurl + 'login', data, this.httpOptions); }
 
   register(data){ return this.http.post(this.baseurl+'register', data, this.httpOptions); }
+
+  getCategories(){ return this.http.get(this.baseurl + 'categorie'); }
+
+  getBudgets(){ return this.http.get(this.baseurl + 'budgets'); };
 
 }
