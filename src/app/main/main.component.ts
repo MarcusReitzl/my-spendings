@@ -4,6 +4,7 @@ import { KategorieService } from '../kategorie.service';
 import { Chart } from 'chart.js';
 import { Categorie } from '../shared/categorie.model';
 import { ServerService } from '../server.service';
+import { Booking } from '../shared/booking.model';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class MainComponent implements OnInit {
   @ViewChild('lineChart') private chartRef;
   data: number[] = [];
   labels: string[] = [];
+  booking: Booking;
   
 
 
@@ -57,7 +59,6 @@ export class MainComponent implements OnInit {
     this.bookingservice.onAddNew(inputText.value, inputNumber.value, 'Ausgaben', inputKategorie.value);
     this.bookingResponse = "Ausgang: " + inputText.value + " mit der Kategorie " + inputKategorie.value + " verbucht."
     this.kategorieservice.addOutcome(inputKategorie.value, inputNumber.value);
-    
   };  
 
   onAddEinnahmen(inputText, inputNumber, inputKategorie) {

@@ -21,6 +21,7 @@ import { BudgetComponent } from './settings/budget-settings/budget/budget.compon
 import { BudgetService } from './budget.service';
 import { ServerService } from './server.service';
 import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 
 
 const appRoutes: Routes = [
@@ -57,7 +58,8 @@ const appRoutes: Routes = [
     BrowserModule,
     AppRoutingModule,
     RouterModule.forRoot(appRoutes),
-    HttpModule
+    HttpModule,
+    HttpClientModule
 
   ],
   providers: [BookingService, KategorieService, BudgetService, ServerService],

@@ -1,13 +1,13 @@
 export class Booking{
-    id:number;
+    id:number = null;
     text: string;
     value: number;
     type:string;
     kategorie: string;
     date: string;
 
-    constructor(id:number, text:string, value:number, type:string, kategorie:string, date){
-        this.id = id;
+    constructor( text:string, value:number, type:string, kategorie:string, date){
+        
         this.text = text;
         this.value = value;
         this.type = type;

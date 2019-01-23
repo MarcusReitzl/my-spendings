@@ -1,5 +1,6 @@
 const model = require('./model');
 
+
 function listAction(request, response) {
   model.getAllBookings(1).then(
     bookings => {
@@ -33,9 +34,9 @@ function formAction(request, response) {
 }
 
 function saveAction(request, response) {
-  let booking = request.body.booking;
+  let booking = request.body;
   model.saveBooking(booking);
-  response.redirekt(request.baseUrl)
+  
 }
 
 module.exports = {

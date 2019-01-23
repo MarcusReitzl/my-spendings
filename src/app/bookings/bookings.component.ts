@@ -13,10 +13,12 @@ import { ServerService } from '../server.service';
   styleUrls: ['./bookings.component.css']
 })
 export class BookingsComponent implements OnInit {
-  bookings: Booking[];
+  bookings: any[];
   filterBookings: Booking[] = [];
   categorieArray: Categorie[];
   showFilter: boolean = false;
+  converter: Date;
+  date:string;
 
 
   constructor(private bookingService: BookingService, private kategorieService: KategorieService, private serverService: ServerService) { }
@@ -25,6 +27,9 @@ export class BookingsComponent implements OnInit {
     this.bookings = this.bookingService.getBookings(); 
     this.categorieArray = this.kategorieService.getCategorie();
 
+    this.bookingService.bookingchanged.subscribe(
+      () => (this.bookings = this.bookingService.getBookings())
+    )
    
   }
 
@@ -129,12 +134,21 @@ export class BookingsComponent implements OnInit {
 
   onGetBookings(){
     this.serverService.initialRequest().subscribe(
-      (response:Response) => {
-      const data = response.json();
-      this.bookings = data;
+      (response: any[]) => {
+      const data = response;
+      for(let entry of data){
+        console.log(entry);
+        
+      }
       this.bookingService.setBookings(data);
-      console.log(data);
-      
+      this.bookings = data;
+
+      for(let booking of this.bookings ){
+        this.date = booking.date;
+        booking.date = this.date.split("T")[0];
+      }
+
+     
     },
       (error) => {console.log(error);}
      );
