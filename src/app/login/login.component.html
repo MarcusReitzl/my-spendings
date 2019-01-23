@@ -1,23 +1,23 @@
 <form>
-    <div class="row">
-      <div class="form-group col-md-3 col-md-offset-3">
-        <label for="exampleInputEmail1">Username</label>
-        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter Username" #inUsername required>
-      </div>
-    </div>
-    <div class="row">  
-      <div class="form-group col-md-3 col-md-offset-3">
-        <label for="exampleInputPassword1">Password</label>
-        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" #inPassword required>
-      </div>
-    </div>
-    
-    <div class="row">
-      <div class="col-md-3 col-md-offset-3">
-      <button type="submit" class="btn btn-primary" (click)="onLogin(inUsername, inPassword)">Submit</button>
-      <small id="emailHelp" class="form-text text-muted">
-        <p><br>Noch nicht registriert? <a href="" routerLink="/register">Click here!</a></p>
-      </small>
+  <div class="row">
+    <div class="form-group col-md-3 col-md-offset-3">
+      <label for="exampleInputEmail1">Username</label>
+      <input type="text" class="form-control" id="name" name="name"placeholder="Enter Username" #inUsername required>
     </div>
   </div>
-    </form>
+  <div class="row">  
+    <div class="form-group col-md-3 col-md-offset-3">
+      <label for="exampleInputPassword1">Password</label>
+      <input type="password" class="form-control" id="password" name="password" placeholder="Password" #inPassword required>
+    </div>
+  </div>
+    
+  <div class="row">
+    <div class="col-md-3 col-md-offset-3">
+    <button type="submit" class="btn btn-primary" (click)="onLogin(inUsername, inPassword)">Submit</button>
+    <small id="emailHelp" class="form-text text-muted">
+      <p><br>Noch nicht registriert? <a href="" routerLink="/register">Click here!</a></p>
+    </small>
+    </div>
+  </div>
+</form>
