@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ServerService } from '../server.service';
+import { ɵangular_packages_platform_browser_platform_browser_d } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-register',
@@ -7,9 +9,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor() { }
+  constructor(private serverService: ServerService) { }
 
   ngOnInit() {
   }
 
+  onRegister(username, firstname, lastname, pass, passRepeat){
+    if(pass.value !== passRepeat.value){
+
+    }else{
+      let data = {
+        'username' : username.value,
+        'firstname' : firstname.value,
+        'lastname' : lastname.value,
+        'password' : pass.value
+      }
+
+      this.serverService.register(data).subscribe(
+        (response:Response) => (console.log(response)),
+        (error) => (console.log(error))
+        );
+    }
+  }
 }

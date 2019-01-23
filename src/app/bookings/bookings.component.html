@@ -34,7 +34,7 @@
    <ng-container *ngIf="showFilter === false">
   
     <div class="row" *ngFor="let booking of bookings" [ngStyle]='{color: booking.type === "Einnahmen" ? "green" : "red" }'>
-    <div class="col-sm-2"> {{ booking.id }} </div>
+    <!-- <div class="col-sm-2"> {{ booking.id }} </div> -->
     <div class="col-sm-2"> {{ booking.date }} </div>
     <div class="col-sm-2"> {{ booking.text }} </div>
     <div class="col-sm-2"> {{ booking.value }} € </div>
@@ -44,11 +44,11 @@
 
   <ng-container *ngIf="showFilter === true">
   <div class="row" *ngFor="let booking of filterBookings" [ngStyle]='{color: booking.type === "Einnahmen" ? "green" : "red" }'>
-    <div class="col-sm-2"> {{ booking.PosId }} </div>
-    <div class="col-sm-2"> {{ booking.Belegdatum }} </div>
-    <div class="col-sm-2"> {{ booking.Belegname }} </div>
-    <div class="col-sm-2"> {{ booking.PosPreis }} € </div>
-    <div class="col-sm-2"> {{ booking.Kategoriename }} </div>
+    <!-- <div class="col-sm-2"> {{ booking.PosId }} </div> -->
+    <div class="col-sm-2"> {{ booking.date }} </div>
+    <div class="col-sm-2"> {{ booking.text }} </div>
+    <div class="col-sm-2"> {{ booking.value }} € </div>
+    <div class="col-sm-2"> {{ booking.kategorie }} </div>
   </div>
   </ng-container>
 

@@ -36,19 +36,19 @@ function insertBooking(booking){
   kategoriename = booking.kategorie;
   belegdatum = booking.date;
 
+ console.log(booking);
+  // return new Promise((resolve, reject) => {
+  //    const query = 
 
-  return new Promise((resolve, reject) => {
-     const query = 
+  //   connection.query(query,[userId],(error, results)=>{
+  //     if (error){
+  //       reject(error)
+  //     } else {
+  //       resolve(results);
+  //     }
+  //   });
 
-    connection.query(query,[userId],(error, results)=>{
-      if (error){
-        reject(error)
-      } else {
-        resolve(results);
-      }
-    });
-
-  });
+  // });
 }
 
 function updateBooking(booking){

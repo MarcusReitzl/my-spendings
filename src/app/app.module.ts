@@ -30,6 +30,7 @@ const appRoutes: Routes = [
 { path: "main", component: MainComponent },
 { path: "bookings", component: BookingsComponent },
 { path: "statistics", component: StatisticsComponent },
+{ path: "register", component: RegisterComponent},
 { path: "settings", component: SettingsComponent, children:[
   { path: "categories", component: KatSettingsComponent },
   { path: "budgets", component: BudgetSettingsComponent  },
