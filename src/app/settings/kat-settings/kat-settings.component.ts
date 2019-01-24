@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { KategorieService } from 'src/app/kategorie.service';
 import { Categorie } from 'src/app/shared/categorie.model';
+import { ServerService } from 'src/app/server.service';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-kat-settings',
@@ -9,15 +11,30 @@ import { Categorie } from 'src/app/shared/categorie.model';
 })
 export class KatSettingsComponent implements OnInit {
   categories: Categorie [];
+  
 
-  constructor(private katService: KategorieService) { }
+  constructor(private katService: KategorieService, private serverService:ServerService) { }
 
   ngOnInit() {
     this.categories = this.katService.getCategorie();
+
+    this.katService.valueChanged.subscribe(
+      () => (this.categories= this.katService.getCategorie())
+    )
   }
 
   onAddCat(inputKategorie){
+    let data = {
+      'categorie': inputKategorie.value
+    }
+
+    let categorie: string = inputKategorie.value
     this.katService.onAddCategorie(inputKategorie.value);
+    this.serverService.postCategorie(data).subscribe(
+      ()=>(console.log('successfull'),
+      (error) => (console.log('do bin i'))
+      )
+    );
   }
 
   onDelCategorie(inputSelKat){

@@ -1,16 +1,22 @@
 const connection = require("../db").getDb();
 
 
-function getAllBookings(userId) {
+function getAllBookings(userID) {
 
   return new Promise((resolve, reject) => {
-    const query = "SELECT BP.Id AS id , BP.Price AS value, C.Name As kategorie, BH.Name AS text, BH.Date AS date FROM bookings_pos AS BP " +
-      "INNER JOIN bookings_head AS BH ON BH.Id = BP.HeadId " +
-      "INNER JOIN categories AS C ON C.Id = BP.KatId " +
-      "WHERE BH.UserId = ?"
-    ;
+    // const query = "SELECT BP.Id AS id , BP.Price AS value, C.Name As kategorie, BH.Name AS text, BH.Date AS date FROM bookings_pos AS BP " +
+    //   "INNER JOIN bookings_head AS BH ON BH.Id = BP.HeadId " +
+    //   "INNER JOIN categories AS C ON C.Id = BP.KatId " +
+    //   "WHERE BH.UserId = ?"
+    // ;
 
-    connection.query(query,[userId],(error, results)=>{
+    const query = `SELECT bp.Id AS id , bp.Price AS value, c.Name As kategorie, bh.Name AS text, bh.Date AS date 
+                  FROM bookings_pos bp, bookings_head bh, categories c
+                  WHERE bh.id = bp.HeadId
+                  AND C.id = bp.KatId
+                  AND bh.UserID = ?;`
+
+    connection.query(query,[userID],(error, results)=>{
       if (error){
         reject(error)
       } else {
@@ -36,8 +42,7 @@ function insertBooking(booking){
   kategoriename = booking.kategorie;
   belegdatum = booking.date;
 
- console.log(booking);
-  // return new Promise((resolve, reject) => {
+   // return new Promise((resolve, reject) => {
   //    const query = 
 
   //   connection.query(query,[userId],(error, results)=>{

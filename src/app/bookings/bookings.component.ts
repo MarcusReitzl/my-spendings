@@ -30,6 +30,9 @@ export class BookingsComponent implements OnInit {
     this.bookingService.bookingchanged.subscribe(
       () => (this.bookings = this.bookingService.getBookings())
     )
+    this.kategorieService.valueChanged.subscribe(
+      () => (this.categorieArray = this.kategorieService.getCategorie())
+    )
    
   }
 

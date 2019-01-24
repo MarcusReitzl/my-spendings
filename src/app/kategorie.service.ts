@@ -28,4 +28,13 @@ addOutcome(categorie, amount){
     }
 }
 
+setCategorie(categorie){
+    for(let cat of categorie){
+        console.log(cat);
+        
+        this.categorie.push(cat);
+    }
+    this.valueChanged.next(this.categorie);
+}
+
 }

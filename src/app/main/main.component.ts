@@ -49,7 +49,8 @@ export class MainComponent implements OnInit {
     .subscribe(
       (categorie: Categorie[])=>{
        this.prepareArray();
-       this.chart.update();     
+       this.chart.update();
+       this.categorieArray = this.kategorieservice.getCategorie();     
       }
     ) 
   }

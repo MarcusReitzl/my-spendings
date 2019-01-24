@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const bookingRoutes = require('./booking');
 const registerRoutes = require('./routes/register');
 const loginRoutes = require('./routes/login');
+const categorieRoutes = require('./routes/categories');
 const db = require("./db");
 const cors = require('cors');
 
@@ -17,6 +18,7 @@ app.get('/',(request, response) => response.redirect('/booking'));
 app.use("/booking", bookingRoutes);
 app.use("/register", registerRoutes);
 app.use("/login", loginRoutes);
+app.use("/categorie", categorieRoutes);
 
 
 
