@@ -48,9 +48,10 @@ export class MainComponent implements OnInit {
     this.kategorieservice.valueChanged
     .subscribe(
       (categorie: Categorie[])=>{
-       this.prepareArray();
-       this.chart.update();
-       this.categorieArray = this.kategorieservice.getCategorie();     
+      this.categorieArray = this.kategorieservice.getCategorie();
+      this.prepareArray();
+      this.chart.update();
+            
       }
     ) 
   }
@@ -60,6 +61,17 @@ export class MainComponent implements OnInit {
     this.bookingservice.onAddNew(inputText.value, inputNumber.value, 'Ausgaben', inputKategorie.value);
     this.bookingResponse = "Ausgang: " + inputText.value + " mit der Kategorie " + inputKategorie.value + " verbucht."
     this.kategorieservice.addOutcome(inputKategorie.value, inputNumber.value);
+    
+    let data = {
+      amount: inputNumber.value,
+      id: this.kategorieservice.getIndexOf(inputKategorie.value)      
+    }
+
+    this.serverService.updateCategorieAmount(data).subscribe(
+      (response) =>(console.log(response)),
+      (error) => (console.log(error))
+      );
+    
   };  
 
   onAddEinnahmen(inputText, inputNumber, inputKategorie) {

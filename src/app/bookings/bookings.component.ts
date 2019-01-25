@@ -127,22 +127,11 @@ export class BookingsComponent implements OnInit {
       this.filterBookings = [];  
   }  
 
-  onSaveBookings(){
-    // this.serverService.putBookings(this.bookings).subscribe(
-    //   (response: Response) => (console.log(response)),
-    //   (error) => (console.log(error))
-      
-    // );
-  }
-
   onGetBookings(){
     this.serverService.initialRequest().subscribe(
       (response: any[]) => {
       const data = response;
-      for(let entry of data){
-        console.log(entry);
-        
-      }
+     
       this.bookingService.setBookings(data);
       this.bookings = data;
 

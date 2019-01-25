@@ -15,7 +15,7 @@
       <select #inputSelKat>
         <option value = "unselected"> Auswählen </option>
         <option *ngFor="let kat of categorieArray" [value] = "kat">
-          {{ kat }}
+          {{ kat.name }}
         </option>
     </select>
     </div>

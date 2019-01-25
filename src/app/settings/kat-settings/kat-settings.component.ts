@@ -45,7 +45,14 @@ export class KatSettingsComponent implements OnInit {
     }else if(confirm("Sind sie sicher das sie die Kategorie " + inputSelKat.value + " wirklich löschen möchten?")){
       for(let i = 0; i < this.categories.length; i++){
         if(this.categories[i].name === inputSelKat.value){
+          let data = {
+            name: this.categories[i].name
+          }
           this.categories.splice(i,1);
+          this.serverService.deleteCategorie(data).subscribe(
+            (response)=>(console.log(response)),
+            (error) => (console.log(error)) 
+          );
         }
       }
     }

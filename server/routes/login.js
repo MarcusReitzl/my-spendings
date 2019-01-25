@@ -25,17 +25,14 @@ connection.query(query,[user, pass], (err, row) => {
         res.status(400).json({message:"User oder Password falsch."})
     } else {
             let userdata = {
-            id: row[0].id,
+            id: row[0].Id,
             username: row[0].username,
         }
         jwt.sign(userdata, 'secretkey' ,(err, token)=>{
             if(err){
                 res.status(500);
             }else{
-                res.status(200).json({token, user:{
-                  firstname: row[0].firstname,
-                  lastname : row[0].name  
-                }});
+                res.status(200).json({token});
             }
         });    
     }

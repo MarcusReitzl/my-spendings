@@ -18,7 +18,7 @@ app.get('/',(request, response) => response.redirect('/booking'));
 app.use("/booking", bookingRoutes);
 app.use("/register", registerRoutes);
 app.use("/login", loginRoutes);
-app.use("/categorie", categorieRoutes);
+app.use("/categories", categorieRoutes);
 
 
 

@@ -27,11 +27,14 @@ export class LoginComponent implements OnInit {
       this.serverService.setName(response['user'].firstname, response['user'].lastname);
       this.serverService.toogleLoggedIn();
       
-      //set categorie
-      this.serverService.getCategories().subscribe(
-        (response)=>{ this.categorieService.setCategorie(response); }
-      );
-
+      
+      this.serverService.getCategories().subscribe((response: any[])=>{ 
+        let data = response;
+        console.log(data);
+        
+        this.categorieService.setCategorie(data);}
+        );
+      
       this.router.navigate(['main']);
       },
       (error) => (console.log(error))     

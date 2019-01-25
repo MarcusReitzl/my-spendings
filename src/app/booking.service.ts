@@ -34,7 +34,7 @@ export class BookingService{
         this.bookings.push(this.booking);
         
         
-        this.serverService.putBookings(this.booking).subscribe(
+        this.serverService.postBookings(this.booking).subscribe(
             (response: Response) => console.log(response),
             (error) => console.log(error)          
         );

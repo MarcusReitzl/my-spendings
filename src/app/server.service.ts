@@ -24,21 +24,25 @@ loggedInchanged = new Subject<Boolean>();
 
   constructor(private http: HttpClient) { }
 
-  initialRequest() { return this.http.get(this.baseurl + 'booking', this.httpOptions); }
+  initialRequest() { return this.http.get(this.baseurl + 'booking', this.httpOptions); };
 
-  putBookings(booking: Booking){ return this.http.post(this.baseurl + 'booking/save', booking, this.httpOptions); }
+  postBookings(booking: Booking){ return this.http.post(this.baseurl + 'booking/save', booking, this.httpOptions); };
 
-  login(data){ return this.http.post(this.baseurl + 'login', data, this.httpOptions); }
+  login(data){ return this.http.post(this.baseurl + 'login', data, this.httpOptions); };
 
-  register(data){ return this.http.post(this.baseurl+ 'register', data, this.httpOptions); }
+  register(data){ return this.http.post(this.baseurl+ 'register', data, this.httpOptions); };
 
-  getCategories(){ return this.http.get(this.baseurl + 'categorie', this.httpOptions); }
+  getCategories(){ return this.http.get(this.baseurl + 'categories', this.httpOptions); };
 
-  getBudgets(){ return this.http.get(this.baseurl + 'budgets', this.httpOptions); }
+  getBudgets(){ return this.http.get(this.baseurl + 'budgets', this.httpOptions); };
 
-  postCategorie(data){ return this.http.post(this.baseurl + 'categorie/save', data, this.httpOptions); }
+  postCategorie(data){ return this.http.post(this.baseurl + 'categories/save', data, this.httpOptions); };
 
-  postBudget(data){ return this.http.post(this.baseurl + 'budget/save', data, this.httpOptions); }
+  postBudget(data){ return this.http.post(this.baseurl + 'budget/save/' + data.id, data, this.httpOptions); };
+
+  deleteCategorie(data){ return this.http.delete(this.baseurl + 'categories/delete/' + data.name, this.httpOptions)}; 
+
+  updateCategorieAmount(data){ return this.http.put(this.baseurl + 'categories/update/' + data.id, data.amount, this.httpOptions);};
 
   setToken(token:string){
    this.httpOptions.headers = this.httpOptions.headers.set('Authorization', 'Bearer ' + token);

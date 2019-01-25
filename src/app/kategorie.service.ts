@@ -3,12 +3,7 @@ import { Subject } from 'rxjs';
 
 export class KategorieService{
     valueChanged = new Subject<Categorie[]>();
-    
-    categorie: Categorie [] = [
-        new Categorie('Diverse'),
-        new Categorie('Essen'),
-        new Categorie('Reinigung')
-  ]
+    categorie: Categorie [] = [];
 
 onAddCategorie(inputKategorie){
     this.categorie.push(new Categorie(inputKategorie));
@@ -28,13 +23,20 @@ addOutcome(categorie, amount){
     }
 }
 
-setCategorie(categorie){
-    for(let cat of categorie){
-        console.log(cat);
-        
-        this.categorie.push(cat);
-    }
+setCategorie(categorie: any[]){
+    console.log(categorie);
+    
+    this.categorie = categorie
     this.valueChanged.next(this.categorie);
+    }
+    
+getIndexOf(categorie){
+    for(let cat of categorie){
+        if(cat.name === categorie){
+            return cat.id;
+        }
+    }
+
 }
 
 }

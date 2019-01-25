@@ -17,32 +17,11 @@ function verifyToken(req, res, next){
             if(err) {
                //response.sendStatus(403);
             } else {
-               this.userdata = authData;
-               
+               req.userId = authData.id;
+               next();
             }
         });
-
-        //get user ID;
-        query = `SELECT Id FROM users WHERE username = ?`; 
-        connection.query(query,[this.userdata.username],(err, row)=>{
-            if(err){
-            
-            }else if(row.length === 0){
-             res.send
-            } else {
-            userid = row[0].Id;
-            
-            req.userId = userid;
-            next();
-            }
-        });
-        //Next middleware
-        
-
-    }else{
-        // Forbidden
-        res.sendStatus(403);
-    }
+    }    
 }
 
 module.exports = verifyToken;
