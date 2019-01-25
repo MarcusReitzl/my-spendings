@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { BookingService } from '../booking.service';
-import { KategorieService } from '../kategorie.service';
+import { CategorieService } from '../categorie.service';
 import { Chart } from 'chart.js';
 import { Categorie } from '../shared/categorie.model';
 import { ServerService } from '../server.service';
@@ -23,7 +23,7 @@ export class MainComponent implements OnInit {
   
 
 
-  constructor(private bookingservice: BookingService, private kategorieservice: KategorieService, private serverService: ServerService) {
+  constructor(private bookingservice: BookingService, private kategorieservice: CategorieService, private serverService: ServerService) {
   }
 
   ngOnInit() {
@@ -51,7 +51,7 @@ export class MainComponent implements OnInit {
       this.categorieArray = this.kategorieservice.getCategorie();
       this.prepareArray();
       this.chart.update();
-            
+      this.chart.render();
       }
     ) 
   }

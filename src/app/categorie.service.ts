@@ -1,7 +1,7 @@
 import { Categorie } from './shared/categorie.model';
 import { Subject } from 'rxjs';
 
-export class KategorieService{
+export class CategorieService{
     valueChanged = new Subject<Categorie[]>();
     categorie: Categorie [] = [];
 

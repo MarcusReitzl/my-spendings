@@ -13,7 +13,7 @@ import { BookingService } from './booking.service';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { DropdownDirective } from './shared/dropdown.directive';
-import { KategorieService } from './kategorie.service';
+import { CategorieService } from './categorie.service';
 import { Routes, RouterModule } from '@angular/router';
 import { KatSettingsComponent } from './settings/kat-settings/kat-settings.component';
 import { BudgetSettingsComponent } from './settings/budget-settings/budget-settings.component';
@@ -63,7 +63,7 @@ const appRoutes: Routes = [
     HttpClientModule
 
   ],
-  providers: [BookingService, KategorieService, BudgetService, ServerService],
+  providers: [BookingService, CategorieService, BudgetService, ServerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

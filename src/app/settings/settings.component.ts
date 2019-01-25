@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { KategorieService } from '../kategorie.service';
+import { CategorieService } from '../categorie.service';
 
 @Component({
   selector: 'app-settings',
@@ -8,7 +8,7 @@ import { KategorieService } from '../kategorie.service';
 })
 export class SettingsComponent implements OnInit {
 
-  constructor(private kategorieService: KategorieService) { }
+  constructor(private kategorieService: CategorieService) { }
 
   ngOnInit() {
   }

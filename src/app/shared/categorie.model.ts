@@ -6,6 +6,6 @@ export class Categorie {
 
     constructor(name: string){
         this.name = name;
-        this.value = 100;
+        this.value = 0;
          }
 }

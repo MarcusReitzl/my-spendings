@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { KategorieService } from 'src/app/kategorie.service';
+import { CategorieService } from 'src/app/categorie.service';
 import { Categorie } from 'src/app/shared/categorie.model';
 import { ServerService } from 'src/app/server.service';
 import { Subject } from 'rxjs';
@@ -13,7 +13,7 @@ export class KatSettingsComponent implements OnInit {
   categories: Categorie [];
   
 
-  constructor(private katService: KategorieService, private serverService:ServerService) { }
+  constructor(private katService: CategorieService, private serverService:ServerService) { }
 
   ngOnInit() {
     this.categories = this.katService.getCategorie();

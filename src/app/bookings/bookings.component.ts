@@ -3,7 +3,7 @@ import { Response } from '@angular/http';
 
 import { Booking } from '../shared/booking.model';
 import { BookingService } from '../booking.service';
-import { KategorieService } from '../kategorie.service';
+import { CategorieService } from '../categorie.service';
 import { Categorie } from '../shared/categorie.model';
 import { ServerService } from '../server.service';
 
@@ -21,7 +21,7 @@ export class BookingsComponent implements OnInit {
   date:string;
 
 
-  constructor(private bookingService: BookingService, private kategorieService: KategorieService, private serverService: ServerService) { }
+  constructor(private bookingService: BookingService, private kategorieService: CategorieService, private serverService: ServerService) { }
 
   ngOnInit() {
     this.bookings = this.bookingService.getBookings(); 

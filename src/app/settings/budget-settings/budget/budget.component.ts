@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BudgetService } from 'src/app/budget.service';
 import { Budget } from 'src/app/shared/budget.model';
 import { ActivatedRoute } from '@angular/router';
-import { KategorieService } from 'src/app/kategorie.service';
+import { CategorieService } from 'src/app/categorie.service';
 import { Categorie } from 'src/app/shared/categorie.model';
 
 @Component({
@@ -18,7 +18,7 @@ export class BudgetComponent implements OnInit {
 
   constructor(private budgetService: BudgetService,
     private route: ActivatedRoute, 
-    private categorieService:KategorieService) { }
+    private categorieService:CategorieService) { }
 
   ngOnInit() {
       this.budget = this.budgetService.getSingleBudget(this.route.snapshot.params['id']);

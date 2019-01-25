@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ServerService } from '../server.service';
 import { Router } from '@angular/router';
-import { KategorieService } from '../kategorie.service';
+import { CategorieService } from '../categorie.service';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +10,7 @@ import { KategorieService } from '../kategorie.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private serverService: ServerService, private router:Router, private categorieService: KategorieService) { }
+  constructor(private serverService: ServerService, private router:Router, private categorieService: CategorieService) { }
 
   ngOnInit() {
   }
@@ -24,13 +24,12 @@ export class LoginComponent implements OnInit {
     this.serverService.login(data).subscribe(
       
       (response) => {this.serverService.setToken(response['token']);
-      this.serverService.setName(response['user'].firstname, response['user'].lastname);
       this.serverService.toogleLoggedIn();
       
       
       this.serverService.getCategories().subscribe((response: any[])=>{ 
         let data = response;
-        console.log(data);
+        
         
         this.categorieService.setCategorie(data);}
         );

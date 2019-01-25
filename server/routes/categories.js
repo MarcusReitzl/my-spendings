@@ -13,7 +13,7 @@ router.get('/', checkAuth, (req, res)=>{
     let userID = req.userId;
     
     
-    const query = `SELECT c.Id as id, c.Name AS name, uc.categorieAmount AS amount
+    const query = `SELECT c.Id as id, c.Name AS name, uc.categorieAmount AS value
                    FROM categories c, usercategorie uc
                    WHERE c.Id = uc.categorieID
                    AND uc.userID = ?; 
@@ -25,7 +25,6 @@ router.get('/', checkAuth, (req, res)=>{
         } else if(row.length === 0) {
             res.status(404);
         } else {
-            console.log(row)
             res.status(200).json(row);
 
         }
@@ -44,10 +43,9 @@ router.post('/save', checkAuth, (req, res) =>{
             res.sendStatus(500);
         } else if (row.length > 0){     //categorie exists
             let catId = row[0].Id;
-            console.log('categorie exists');
             //<--------------------- check if categorie exists for this user  ------------------>
             const queryCheckForUser = `SELECT * FROM usercategorie WHERE userID = ? AND categorieID = ?`
-            const queryINSERTsecond = `INSERT INTO usercategorie (userID, categorieID, categorieAmount) VALUE (?,?,0)`;
+            const queryINSERTsecond = `INSERT INTO usercategorie (userID, categorieID, categorieAmount) OUTPUT INSERTED.Id VALUE (?,?,0)`;
             connection.query(queryCheckForUser,[userID, catId], (err, row)=>{          
                 if(err){
                     row.sendStatus(500);
@@ -65,13 +63,14 @@ router.post('/save', checkAuth, (req, res) =>{
         } else if (row.length === 0) {
             //categorie does not exit => insert into categories and usercategorie
             const queryINSERTfirst = `INSERT INTO categories (name) VALUES (?);`;
-            const queryINSERTsecond = `INSERT INTO usercategorie (userID, categorieID, categorieAmount) SELECT (?,id,0) FROM categories WHERE Name = ?`;
+            const queryINSERTsecond = `INSERT INTO usercategorie (userID, categorieID, categorieAmount)OUTPUT INSERTED.Id SELECT (?,id,0) FROM categories WHERE Name = ?`;
 
             connection.query(queryINSERTfirst,[categorie], (err, row)=>{
                 if(err){
                     res.sendStatus(500);
                 } else {
-                    connection.query(queryINSERTsecond,[userID],(err, row)=>{
+                    let id = row[0].Id;
+                    connection.query(queryINSERTsecond,[userID],(err)=>{
                         if(err){
                             res.sendStatus(500);
                         } else {
