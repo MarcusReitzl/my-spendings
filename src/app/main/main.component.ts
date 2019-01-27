@@ -27,7 +27,7 @@ export class MainComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.categorieArray = this.kategorieservice.getCategorie();
+    this.categorieArray = this.kategorieservice.getCategories();
     this.prepareArray();
 
     this.chart = new Chart(this.chartRef.nativeElement, {
@@ -48,7 +48,7 @@ export class MainComponent implements OnInit {
     this.kategorieservice.valueChanged
     .subscribe(
       (categorie: Categorie[])=>{
-      this.categorieArray = this.kategorieservice.getCategorie();
+      this.categorieArray = this.kategorieservice.getCategories();
       this.prepareArray();
       this.chart.update();
       this.chart.render();
@@ -64,7 +64,7 @@ export class MainComponent implements OnInit {
     
     let data = {
       amount: inputNumber.value,
-      id: this.kategorieservice.getIndexOf(inputKategorie.value)      
+      id: this.kategorieservice.getIdOf(inputKategorie.value)      
     }
 
     this.serverService.updateCategorieAmount(data).subscribe(

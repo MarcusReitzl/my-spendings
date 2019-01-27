@@ -41,9 +41,9 @@
           <div class="list-group" *ngIf="budgets !== null">
          
           <a
-          [routerLink]="['budget', budget.budgetId]"
           class="list-group-item"
-          *ngFor="let budget of budgets">
+          *ngFor="let budget of budgets"
+          [routerLink]="['budget', budget.budgetId]">
            {{ budget.budgetName }}
           </a>
 

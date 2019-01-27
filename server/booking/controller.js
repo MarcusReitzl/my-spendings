@@ -6,7 +6,7 @@ function listAction(request, response) {
   model.getAllBookings(request.userId).then(
     bookings => {
       if(bookings.length < 1){
-        response.status(401).json({message:"keine Buchungen vorhanden"});
+        response.json({message:"keine Buchungen vorhanden"});
         }
       else{
         /*const bookingsResponse = {

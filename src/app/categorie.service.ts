@@ -9,7 +9,7 @@ onAddCategorie(inputKategorie){
     this.categorie.push(new Categorie(inputKategorie));
 }
 
-getCategorie(){
+getCategories(){
     return this.categorie;
 }
   
@@ -17,26 +17,34 @@ addOutcome(categorie, amount){
     for(let cat of this.categorie){
         if(cat.name === categorie){
             cat.value += parseInt(amount);
-            console.log(cat.value);
             this.valueChanged.next(this.categorie);
         }
     }
 }
 
-setCategorie(categorie: any[]){
-    console.log(categorie);
-    
+setCategorie(categorie: any[]){  
     this.categorie = categorie
     this.valueChanged.next(this.categorie);
     }
     
-getIndexOf(categorie){
-    for(let cat of categorie){
+getIdOf(categorie){
+    for(let cat of this.categorie){
         if(cat.name === categorie){
             return cat.id;
         }
     }
 
+}
+getElement(name){
+    for(let cat of this.categorie){
+        if(cat.name === name){
+            return cat;
+        }
+    }
+}
+
+setID(id){  
+    this.categorie[this.categorie.length-1] = id;
 }
 
 }

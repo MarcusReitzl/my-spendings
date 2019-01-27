@@ -1,50 +1,67 @@
 <ng-container *ngIf="budget">
+
 <div class="row">
   <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2"><h3>{{ budget.budgetName }}</h3></div>
-  
 </div>
-
-
+<br>
 <div class="row">
   <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
     <label>Budget-Grenze:</label>
-    <input type="number" [value]=budget.budgetAmount #inputBudgetAmount>
+    <input type="number" [value]=budget.value #inputBudgetAmount>
   </div>
+<br>
   <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
     <button class="btn btn-primary" (click)="onChangeAmount(inputBudgetAmount)">ändern</button>
   </div>
+
+  <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+    <button class="btn btn-danger" (click)="onDeleteBudget()">Budget löschen</button>
+  </div>
+
   <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2" *ngIf="valueChanged===true">
     <br>Budgetobergrenze wurde erfolgreich geändert!
   </div>
+
   <div class="col-xs-12 col-sm-8 col-md-8 col-sm-offset-5 col-md-offset-0"><hr width="70%"></div>
+
 </div>
+
 <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
       <h3>Kategorie zu Budget hinzufügen</h3>
       <br>
     </div>
+
   <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
     <label>Kategorie:</label>
     <select #inputCat>
       <option *ngFor="let cat of categories" [value]="cat.name">{{ cat.name }}</option>
     </select>
   </div>
+
   <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
     <button class="btn btn-primary" (click)="onAddCat(inputCat)">Hinzufügen</button>
   </div>
+
   <div class="col-xs-12 col-sm-8 col-md-8 col-sm-offset-5 col-md-offset-0"><hr width="70%"></div>
 </div>
+
 <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
       <h3>Kategorien</h3>
       <br>
     </div>
+
   <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-    <p *ngFor="let budCat of budget.includedCategories">{{ budCat }}</p>
+    <p *ngFor="let budCat of budget.includedCategories">{{ budCat.name }}</p>
   </div>
+
   <div class="col-xs-12 col-sm-8 col-md-8 col-sm-offset-5 col-md-offset-0"><hr width="70%"></div>
+
 </div>
+
 <div class="row">
-<div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-2 col-md-offset-1"><a routerLink="/settings/budgets">zurück</a></div>
+  <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-2 col-md-offset-1"><a routerLink="/settings/budgets">zurück</a></div>
 </div>
+
 </ng-container>

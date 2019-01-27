@@ -25,13 +25,13 @@ export class BookingsComponent implements OnInit {
 
   ngOnInit() {
     this.bookings = this.bookingService.getBookings(); 
-    this.categorieArray = this.kategorieService.getCategorie();
+    this.categorieArray = this.kategorieService.getCategories();
 
     this.bookingService.bookingchanged.subscribe(
       () => (this.bookings = this.bookingService.getBookings())
     )
     this.kategorieService.valueChanged.subscribe(
-      () => (this.categorieArray = this.kategorieService.getCategorie())
+      () => (this.categorieArray = this.kategorieService.getCategories())
     )
    
   }
@@ -125,24 +125,5 @@ export class BookingsComponent implements OnInit {
   onClearFilter(){
       this.showFilter = false;
       this.filterBookings = [];  
-  }  
-
-  onGetBookings(){
-    this.serverService.initialRequest().subscribe(
-      (response: any[]) => {
-      const data = response;
-     
-      this.bookingService.setBookings(data);
-      this.bookings = data;
-
-      for(let booking of this.bookings ){
-        this.date = booking.date;
-        booking.date = this.date.split("T")[0];
-      }
-
-     
-    },
-      (error) => {console.log(error);}
-     );
-  }
+  }       
 }

@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CategorieService } from 'src/app/categorie.service';
 import { Categorie } from 'src/app/shared/categorie.model';
 import { ServerService } from 'src/app/server.service';
-import { Subject } from 'rxjs';
+import { BudgetService } from 'src/app/budget.service';
+
 
 @Component({
   selector: 'app-kat-settings',
@@ -13,28 +14,23 @@ export class KatSettingsComponent implements OnInit {
   categories: Categorie [];
   
 
-  constructor(private katService: CategorieService, private serverService:ServerService) { }
+  constructor(private katService: CategorieService, private serverService:ServerService, private budgetService:BudgetService) { }
 
   ngOnInit() {
-    this.categories = this.katService.getCategorie();
+    this.categories = this.katService.getCategories();
 
     this.katService.valueChanged.subscribe(
-      () => (this.categories= this.katService.getCategorie())
+      () => (this.categories= this.katService.getCategories())
     )
   }
 
   onAddCat(inputKategorie){
-    let data = {
-      'categorie': inputKategorie.value
-    }
-
-    let categorie: string = inputKategorie.value
-    this.katService.onAddCategorie(inputKategorie.value);
+    let data = { 'categorie': inputKategorie.value }
+        
     this.serverService.postCategorie(data).subscribe(
-      ()=>(console.log('successfull'),
-      (error) => (console.log('do bin i'))
-      )
-    );
+      (response)=>{this.katService.setID(response[0]);},
+      (error) => (console.log(error))
+      );
   }
 
   onDelCategorie(inputSelKat){
@@ -43,18 +39,23 @@ export class KatSettingsComponent implements OnInit {
     }else if (inputSelKat.value === "Diverse"){
       return;
     }else if(confirm("Sind sie sicher das sie die Kategorie " + inputSelKat.value + " wirklich löschen möchten?")){
+      
       for(let i = 0; i < this.categories.length; i++){
         if(this.categories[i].name === inputSelKat.value){
           let data = {
-            name: this.categories[i].name
+            id: this.categories[i].id
           }
+          console.log(this.categories[i].id);
+          
+          this.budgetService.deleteCategorieofBudget(this.categories[i].id);
           this.categories.splice(i,1);
           this.serverService.deleteCategorie(data).subscribe(
-            (response)=>(console.log(response)),
-            (error) => (console.log(error)) 
+            (response)=>(console.log(response))
           );
-        }
+          
+          break;
+        } 
       }
-    }
+    }  
   }
 }

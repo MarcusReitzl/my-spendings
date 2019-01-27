@@ -1,12 +1,16 @@
 const cfg = require('./config.json');
 const express = require('express');
 const bodyParser = require('body-parser');
+const db = require("./db");
+const cors = require('cors');
+
 const bookingRoutes = require('./booking');
 const registerRoutes = require('./routes/register');
 const loginRoutes = require('./routes/login');
 const categorieRoutes = require('./routes/categories');
-const db = require("./db");
-const cors = require('cors');
+const budgetRoutes = require('./routes/budgets');
+
+
 
 const app = express();
 
@@ -19,6 +23,7 @@ app.use("/booking", bookingRoutes);
 app.use("/register", registerRoutes);
 app.use("/login", loginRoutes);
 app.use("/categories", categorieRoutes);
+app.use("/budgets", budgetRoutes);
 
 
 
