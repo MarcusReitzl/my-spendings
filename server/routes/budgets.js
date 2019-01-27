@@ -93,9 +93,9 @@ router.delete('/delete/:id', checkAuth, (req, res)=>{
                     console.log('hellooo')
                     res.sendStatus(500);
                 } else {
-                    console.log('helloooo')
-                    let queryUpdateBudgetId = `UPDATE categories SET BudgetId = 0 WHERE Name = ? AND userID = ?`
-                    connection.query(queryUpdateBudgetId,[budgetName, userID], (err, row)=>{
+                    console.log(budgetName);
+                    let queryUpdateBudgetId = `UPDATE categories SET BudgetId = 0 WHERE BudgetId = ? AND userID = ?`
+                    connection.query(queryUpdateBudgetId,[budgetID, userID], (err, row)=>{
                         if(err){
                             res.sendStatus(500);
                         }else{
@@ -113,7 +113,7 @@ router.put('/update/:id', checkAuth, (req, res) => {
     let budgetID = req.params.id;
     let userID = req.userId;
     let amount = req.body['value'];
- 
+    console.log(budgetID);
 
     query = `UPDATE budgets SET Amount = ? WHERE userID = ? AND Id = ?`;
     connection.query(query,[amount, userID, budgetID], (err)=>{

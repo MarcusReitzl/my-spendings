@@ -63,9 +63,14 @@ export class MainComponent implements OnInit {
     this.kategorieservice.addOutcome(inputKategorie.value, inputNumber.value);
     
     let data = {
-      amount: inputNumber.value,
-      id: this.kategorieservice.getIdOf(inputKategorie.value)      
+      text: inputText.value,
+      katId: this.kategorieservice.getIdOf(inputKategorie.value),   
+      value: inputNumber.value,
+      date: new Date().toISOString().split("T")[0]         
     }
+    this.serverService.postBookings(data).subscribe(
+      (response) => (console.log(response)
+      ))
 
     this.serverService.updateCategorieAmount(data).subscribe(
       (response) =>(console.log(response)),

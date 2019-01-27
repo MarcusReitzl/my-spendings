@@ -27,8 +27,17 @@ export class KatSettingsComponent implements OnInit {
   onAddCat(inputKategorie){
     let data = { 'categorie': inputKategorie.value }
         
+    for(let cat of this.categories){
+      if(cat.name === inputKategorie.value){
+          return;
+      }
+    }
+    
     this.serverService.postCategorie(data).subscribe(
-      (response)=>{this.katService.setID(response[0]);},
+      (response)=>{
+        this.katService.onAddCategorie(inputKategorie.value);
+        this.katService.setID(response[0]);
+      },
       (error) => (console.log(error))
       );
   }

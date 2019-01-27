@@ -43,7 +43,7 @@ getElement(name){
     }
 }
 
-setID(id){  
+setID(id){ 
     this.categorie[this.categorie.length-1] = id;
 }
 

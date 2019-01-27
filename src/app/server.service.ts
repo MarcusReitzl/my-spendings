@@ -28,7 +28,8 @@ constructor(private http: HttpClient) { }
 
   getBookings() { return this.http.get(this.baseurl + 'booking', this.httpOptions); };
 
-  postBookings(booking: Booking){ return this.http.post(this.baseurl + 'booking/save', booking, this.httpOptions); };
+  postBookings(booking){ 
+    console.log(booking); return this.http.post(this.baseurl + 'booking', booking, this.httpOptions); };
 
 // ------------------------------------  Budget Operations  -----------------------------------------
 
@@ -36,7 +37,7 @@ constructor(private http: HttpClient) { }
 
   postBudget(data){ return this.http.post(this.baseurl + 'budgets/save',  data, this.httpOptions); };
 
-  updateBudgetAmount(data){ return this.http.put(this.baseurl + 'budgets/update/' + data.id, data, this.httpOptions); };
+  updateBudgetAmount(data){ return this.http.put(this.baseurl + 'budgets/update/' + data.ID, data, this.httpOptions); };
 
   deleteBudget(data:number){ return this.http.delete(this.baseurl + 'budgets/delete/' + data, this.httpOptions); };
 

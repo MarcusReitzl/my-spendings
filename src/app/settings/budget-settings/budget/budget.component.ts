@@ -48,7 +48,7 @@ export class BudgetComponent implements OnInit {
       
     }else{
       for(let i = 0; i < this.budget.includedCategories.length; i++){
-        if(this.budget.includedCategories[i] === inputCat.value){
+        if(this.budget.includedCategories[i].name === inputCat.value){
           return  
       }
      }
@@ -71,13 +71,15 @@ export class BudgetComponent implements OnInit {
     }
     this.budget.budgetAmount = newAmount.value;
     this.valueChanged = true;
+    console.log('change amount' + data.ID)
     this.serverService.updateBudgetAmount(data).subscribe();
     
   }
 
   onDeleteBudget(){
-   let budID = this.route.snapshot.params['id'];
 
+   let budID = this.route.snapshot.params['id'];
+  
    this.serverService.deleteBudget(budID).subscribe((response)=>{console.log(response);
    }),(error)=>(console.log(error));
    

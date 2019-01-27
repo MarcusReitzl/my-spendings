@@ -1,16 +1,17 @@
 const Router = require('express').Router;
-const {listAction, deleteAction,formAction,saveAction} = require('./controller');
+const {listAction, detailAction, createAction, updateAction, deleteAction} = require('./controller');
 const router = Router();
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
 const checkAuth = require('../checkAuth');
 
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({extended:false}));
 
 router.get('/', checkAuth, listAction);
-router.get('/delete/:id', checkAuth, deleteAction);
-router.get('/form/:id?', checkAuth, formAction);
-router.post('/save', checkAuth, saveAction);
+router.get('/:id', checkAuth, detailAction);
+router.post('/', checkAuth, createAction);
+router.put('/:id',checkAuth,updateAction);
+router.delete('/:id',checkAuth, deleteAction);
 
 
 

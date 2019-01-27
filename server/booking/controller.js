@@ -3,17 +3,29 @@ const jwt = require('jsonwebtoken');
 
 
 function listAction(request, response) {
-  model.getAllBookings(request.userId).then(
+  model.getAll(request.userId).then(
     bookings => {
       if(bookings.length < 1){
-        response.json({message:"keine Buchungen vorhanden"});
+        response.status(401).json({message:"keine Buchungen vorhanden"});
         }
       else{
-        /*const bookingsResponse = {
-          bookings,
-          links: [{rel: 'self', href: request.baseUrl + '/'}],
-        }; */
         response.status(200).json(bookings);
+      }
+    },
+    error => response.send(error),
+
+  );
+}
+function detailAction(request, response) {
+  let id = parseInt(request.params.id, 10);
+
+  model.get(id,request.userId).then(
+    booking => {
+      if(booking.length < 1){
+        response.status(401).json({message:"keine Buchung gefunden"});
+      }
+      else{
+        response.status(200).json(booking);
       }
     },
     error => response.send(error),
@@ -22,37 +34,49 @@ function listAction(request, response) {
 }
 function deleteAction(request, response) {
   let id = parseInt(request.params.id, 10);
-  model.deleteBooking(id);
-  response.redirect(request.baseUrl)
+  model.remove(id).then(
+    results => {
+      response.status(200).json({message:"Buchung wurde gelöscht"});
+    },
+    error => response.send(error),
+
+  );
+
 }
 
-function formAction(request, response) {
-  response.send(model.getBooking(parseInt(request.params.id,10)));
+function updateAction(request, response) {
+  const booking = {
+    id: request.params.id,
+    name: request.body.name,
+    date: request.body.date,
+    price: request.body.price,
+    katId: request.body.katId,
+  };
+  model.save(booking,request.userId).then(
+    booking => response.status(200).json(booking),
+    error => response.status(500).json(error),
+  );
 }
 
-function saveAction(request, response) {
-  
-  //Verify the Token, Userdata in the payload
+function createAction(request, response) {
 
-  // jwt.verify(request.token, 'secretkey', (err, authData) => {
-  //   if(err) {
-  //     response.sendStatus(403);
-  //   } else {
-  //     // do something with the data
-  //     response.json({
-  //       authData
-  //     });
-  //   }
-  // });
-
-let booking = request.body;
-model.saveBooking(booking);
+  const booking = {
+    name: request.body.text,
+    date: request.body.date,
+    price: request.body.value,
+    katId: request.body.katId,
+  };
+  model.save(booking,request.userId).then(
+    booking => response.status(200).json(booking),
+    error => response.status(500).json(error),
+  );
   
 }
 
 module.exports = {
   listAction,
+  detailAction,
   deleteAction,
-  formAction,
-  saveAction
+  createAction,
+  updateAction
 };
