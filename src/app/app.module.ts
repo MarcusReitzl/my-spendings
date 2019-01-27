@@ -22,6 +22,7 @@ import { BudgetService } from './budget.service';
 import { ServerService } from './server.service';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
+import { BookingComponent } from './bookings/booking/booking.component';
 
 
 const appRoutes: Routes = [
@@ -29,6 +30,7 @@ const appRoutes: Routes = [
 { path: "login", component: LoginComponent},
 { path: "main", component: MainComponent },
 { path: "bookings", component: BookingsComponent },
+{ path: "bookings/booking/:id", component:BookingComponent },
 { path: "statistics", component: StatisticsComponent },
 { path: "register", component: RegisterComponent},
 { path: "settings", component: SettingsComponent, children:[
@@ -53,6 +55,7 @@ const appRoutes: Routes = [
     KatSettingsComponent,
     BudgetSettingsComponent,
     BudgetComponent,
+    BookingComponent
     
   ],
   imports: [

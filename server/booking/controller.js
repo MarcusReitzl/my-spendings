@@ -34,7 +34,8 @@ function detailAction(request, response) {
 }
 function deleteAction(request, response) {
   let id = parseInt(request.params.id, 10);
-  model.remove(id).then(
+  
+  model.remove(id, request.userId).then(
     results => {
       response.status(200).json({message:"Buchung wurde gelöscht"});
     },
@@ -50,7 +51,7 @@ function updateAction(request, response) {
     name: request.body.name,
     date: request.body.date,
     price: request.body.price,
-    katId: request.body.katId,
+    katId: request.body.katId
   };
   model.save(booking,request.userId).then(
     booking => response.status(200).json(booking),

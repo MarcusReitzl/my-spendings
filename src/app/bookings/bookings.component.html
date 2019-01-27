@@ -32,12 +32,26 @@
   
    <ng-container *ngIf="showFilter === false">
   
-    <div class="row" *ngFor="let booking of bookings" [ngStyle]='{color: booking.type === "Einnahmen" ? "green" : "red" }'>
-    <!-- <div class="col-sm-2"> {{ booking.id }} </div> -->
-    <div class="col-sm-2"> {{ booking.date }} </div>
-    <div class="col-sm-2"> {{ booking.text }} </div>
-    <div class="col-sm-2"> {{ booking.value }} € </div>
-    <div class="col-sm-2"> {{ booking.kategorie }} </div>
+    <div class="row"  >
+        
+        <!-- <div class="col-sm-2"> {{ booking.date }} </div>
+        <div class="col-sm-2"> {{ booking.text }} </div>
+        <div class="col-sm-2"> {{ booking.value }} € </div>
+        <div class="col-sm-2"> {{ booking.kategorie }} </div> -->
+        <div class="list-group">
+        <a
+        class="list-group-item"
+        *ngFor="let booking of bookings"
+        [routerLink]="['booking', booking.id]" 
+        [ngStyle]='{color: booking.type === "Einnahmen" ? "green" : "red" }'>
+        {{ booking.date }}
+        {{ booking.text }}
+        {{ booking.value }}
+        {{ booking.kategorie }}
+        </a>
+      </div>
+
+      <router-outlet></router-outlet>
   </div>
   </ng-container>
 

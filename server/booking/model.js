@@ -42,9 +42,10 @@ function get(id, userId) {
 
 function remove(id, userId) {
   return new Promise((resolve, reject) => {
+    console.log(id +' ' + userId);
     const query =
-      'DELETE FROM Bookings WHERE id = ? AND userId = ? ';
-    connection.query(query,[id,userID],(error, results)=>{
+      'DELETE FROM bookings WHERE Id = ? AND UserId = ? ';
+    connection.query(query,[id,userId],(error, results)=>{
       if (error){
         reject(error)
       } else {
@@ -78,8 +79,9 @@ function insert(booking, userId) {
 
 function update(booking, userId) {
   return new Promise((resolve, reject) => {
+    
       const query =
-      'UPDATE Bookings SET Name = ?, Date = ?, Price = ?, KatId = ?, UserId = ? WHERE Id = ?';
+      'UPDATE Bookings SET Name = ?, Date = ?, Price = ?, katId = ?, UserId = ? WHERE Id = ?';
         connection.query(query,[booking.name, booking.date, booking.price, booking.katId, userId, booking.id], (error, results) => {
         if (error) {
           reject(error);

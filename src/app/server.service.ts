@@ -29,8 +29,11 @@ constructor(private http: HttpClient) { }
   getBookings() { return this.http.get(this.baseurl + 'booking', this.httpOptions); };
 
   postBookings(booking){ 
-    console.log(booking); return this.http.post(this.baseurl + 'booking', booking, this.httpOptions); };
+     return this.http.post(this.baseurl + 'booking', booking, this.httpOptions); };
 
+  updateBooking(data) { return this.http.put(this.baseurl + 'booking/' + data.id, data, this.httpOptions)};
+
+  deleteBooking(data){return this.http.delete(this.baseurl + 'booking/' + data, this.httpOptions )};
 // ------------------------------------  Budget Operations  -----------------------------------------
 
   getBudgets(){ return this.http.get(this.baseurl + 'budgets', this.httpOptions); };

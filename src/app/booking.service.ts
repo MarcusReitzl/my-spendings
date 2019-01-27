@@ -28,6 +28,14 @@ export class BookingService{
         this.bookings = booking;
         this.bookingchanged.next(booking);   
     }
+
+    getSingleBooking(id){
+        for(let booking of this.bookings){
+            if(booking.id === id){
+                return booking;
+            }
+        }
+    }
    
     
 }

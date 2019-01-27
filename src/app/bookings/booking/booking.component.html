@@ -1,0 +1,48 @@
+<ng-container *ngIf="booking">
+
+    <div class="row">
+      <div class=" col-md-3 col-md-offset-3"><h3>{{ booking.text}}</h3></div>
+    </div>
+    <br>
+    
+<form>
+     
+  <div class="row">
+      <div class="form-group col-md-3 col-md-offset-3">
+        <label for="exampleInputPassword2">Buchungstext:</label>
+        <input type="text" class="form-control" id="exampleInputPassword2" [value]=booking.text #Buchungstext>
+      </div>
+  </div>
+
+  <div class="row">
+      <div class="form-group col-md-3 col-md-offset-3">
+        <label for="exampleInputPassword2">Buchungsbetrag:</label>
+        <input type="text" class="form-control" id="exampleInputPassword2" [value]=booking.value #Buchungsbetrag>
+      </div>
+  </div>
+     
+  <div class="row">
+      <div class="form-group col-md-3 col-md-offset-3">
+        <label for="exampleInputPassword2">Kategorie:</label>
+        <select class="form-control" #Kategorie>
+            <option value = "unselected"> Auswählen </option>
+            <option *ngFor="let cat of categories" [value] = "cat.name">
+              {{ cat.name }}
+            </option>
+        </select>
+      </div>
+  </div>
+<br>
+  <div class="row ">
+    <div class="col-md-3 col-md-offset-3">
+    <button type="button" class="btn btn-primary" (click)="onChangeBooking(Buchungstext, Buchungsbetrag, Kategorie)">Änderungen speichern</button>
+    <button type="button" class="btn btn-danger" (click)="onDeleteBooking()">Buchung löschen</button>
+  </div>
+</div>
+<br><br>
+<a href="#" class="col-md-3 col-md-offset-3" routerLink="/bookings">zurück</a>
+</form>
+
+    
+    </ng-container>
+    
