@@ -41,8 +41,8 @@ export class LoginComponent implements OnInit {
       this.serverService.getBudgets().subscribe(
       (budgets:any)=>{this.budgetService.setBudgets(budgets); 
         for(let budget of budgets){
-            this.serverService.getCategorieOfBudget(budget.budgetId).subscribe(
-            (categorie)=>{console.log(categorie); this.budgetService.setincludedCategories(budget.budgetId,categorie);});
+          this.serverService.getCategorieOfBudget(budget.budgetId).subscribe(
+          (categorie)=>{console.log(categorie); this.budgetService.setincludedCategories(budget.budgetId,categorie);});
         }  
       });
 

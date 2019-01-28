@@ -78,9 +78,9 @@ router.get('/budgetCat/:id', checkAuth, (req, res)=>{
             res.sendStatus(500);
             
         } else if(row.length === 0) {
-            res.sendStatus(200);
+            res.status(200).json({message:'no Categorie found'});
         } else {
-            
+            console.log(row);
             res.status(200).json(row);
         }
     });
@@ -97,7 +97,7 @@ queryDeletCat = `DELETE FROM categories WHERE Id = ?`
         if(err){
             res.sendStatus(500);
         } else {
-            res.sendStatus(200);
+            res.status(200).json({message: 'gelöscht'});
         }
     })
 });
@@ -112,9 +112,9 @@ router.put('/update/:id', checkAuth, (req, res) => {
     query = `UPDATE categories SET amount = amount + ? WHERE Id = ? AND userID = ?`;
     connection.query(query,[amount, catID, userID], (err, row)=>{
         if(err){
-            res.sendStatus(500);
+            res.status(500).json({message: 'went wrong'});
         }else{
-            res.sendStatus(200);
+            res.status(200).json({message: 'Deleted'});
         }
     });
 
@@ -122,7 +122,7 @@ router.put('/update/:id', checkAuth, (req, res) => {
 
 router.put('/budgetID/:id', checkAuth, (req, res)=> {
     categorieID = req.params.id;
-    budgetID = req.body.budgetID;
+    budgetID = req.body['budgetID'];
     userID = req.userId;
     
     query = `SELECT BudgetId FROM categories WHERE userID = ? AND Id = ?`
@@ -130,7 +130,11 @@ router.put('/budgetID/:id', checkAuth, (req, res)=> {
         if(err){
            
             res.sendStatus(500);
-        } else if (row.length === 0){
+
+        } else if(row[0].BudgetId !== 0){
+            res.status(200).json({message: 'f' })
+        
+        } else if (row[0].BudgetId === 0){
             queryUpdate = `UPDATE categories SET BudgetId = ? WHERE Id = ? AND userID = ?`
             connection.query(queryUpdate,[budgetID, categorieID, userID],(err)=>{
                 if(err){
@@ -138,28 +142,28 @@ router.put('/budgetID/:id', checkAuth, (req, res)=> {
                     res.sendStatus(500);
                 } else {
                     
-                    res.sendStatus(200);
+                    res.status(200).json({message: 't'});
                 }
             })
         } else if(row.length > 0){ 
             for(let i = 0; i < row.length; i++){
                 if(row[i].BudgetId === budgetID){
-                    res.status(400).json({message: 'Already done'})
+                    res.status(200).json({message: 'f'})
+                }
+            }
                 }else{
                     queryUpdate = `UPDATE categories SET BudgetId = ? WHERE Id = ? AND userID = ?`
                     connection.query(queryUpdate,[budgetID, categorieID, userID],(err)=>{
                         if(err){
-                            
                             res.sendStatus(500);
                         } else {
-                            
-                            res.sendStatus(200);
+                             res.sendStatus(200).json({message: 't'});
                         }
                     })
                 }
             }
-        } 
-    })
+        
+    )
 });
 
 

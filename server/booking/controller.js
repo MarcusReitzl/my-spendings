@@ -6,7 +6,7 @@ function listAction(request, response) {
   model.getAll(request.userId).then(
     bookings => {
       if(bookings.length < 1){
-        response.status(401).json({message:"keine Buchungen vorhanden"});
+        response.status(200).json({message:"keine Buchungen vorhanden"});
         }
       else{
         response.status(200).json(bookings);
@@ -32,17 +32,15 @@ function detailAction(request, response) {
 
   );
 }
+
 function deleteAction(request, response) {
   let id = parseInt(request.params.id, 10);
-  
   model.remove(id, request.userId).then(
     results => {
       response.status(200).json(results);
     },
     error => response.send(error),
-
   );
-
 }
 
 function updateAction(request, response) {

@@ -120,7 +120,7 @@ export class BookingsComponent implements OnInit {
        this.showFilter = true;
        //Filter ToDate and Kategorie
 
-    }else if(inputToDate.value != "" && inputFromDate.value === "" &&inputSelKat.value != "unselected" ){
+    }else if(inputToDate.value !== "" && inputFromDate.value === "" &&inputSelKat.value !== "unselected" ){
       // for(let i = 0; i < this.bookings.length; i++){ 
       //   if(this.bookings[i].date <= inputToDate.value && this.bookings[i].kategorie === inputSelKat.value){
       //     this.filterBookings.push(this.bookings[i]);

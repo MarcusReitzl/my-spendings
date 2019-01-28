@@ -28,7 +28,16 @@ export class BudgetSettingsComponent implements OnInit {
 
     this.budgetService.onAddBudget(new Budget(inputName.value, inputAmount.value));
     this.serverService.postBudget(data).subscribe(
-      (response) => {this.budgetService.setBudgets(response)}
+      (response) => {
+        this.budgetService.setBudgets(response);
+        this.serverService.getBudgets().subscribe(
+          (budgets:any)=>{this.budgetService.setBudgets(budgets); 
+            for(let budget of budgets){
+              this.serverService.getCategorieOfBudget(budget.budgetId).subscribe(
+              (categorie)=>{console.log(categorie); this.budgetService.setincludedCategories(budget.budgetId,categorie);});
+            }  
+          });
+      }
     )
   }
 

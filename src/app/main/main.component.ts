@@ -47,7 +47,15 @@ export class MainComponent implements OnInit {
       }
     });
 
- 
+    this.bookingservice.bookingchanged
+    .subscribe(
+      ()=>{
+        this.categorieArray = this.kategorieservice.getCategories();
+        this.prepareArray();
+        this.chart.update();
+        this.chart.render();
+        }
+    )
 
     this.kategorieservice.valueChanged
     .subscribe(
@@ -67,15 +75,11 @@ export class MainComponent implements OnInit {
     if(inputKategorie.value === 'unselected'){
       this.bookingResponse = 'Bitte Kategorie auswählen.'
     } else {
-      this.bookingservice.onAddNew(inputText.value, inputNumber.value, 'Ausgaben', inputKategorie.value);
+      //this.bookingservice.onAddNew(inputText.value, inputNumber.value, 'Ausgaben', inputKategorie.value);
       this.bookingResponse = "Ausgang: " + inputText.value + " mit der Kategorie " + inputKategorie.value + " verbucht."
       this.kategorieservice.addOutcome(inputKategorie.value, inputNumber.value);
       
-      let katId = this.kategorieservice.getIdOf(inputKategorie.value);
-      
-  
-      console.log(inputNumber.value);
-      
+      let katId = this.kategorieservice.getIdOf(inputKategorie.value);   
       let data = {
          
         text: inputText.value,
@@ -97,6 +101,13 @@ export class MainComponent implements OnInit {
       (response) =>(console.log(response)),
       (error) => (console.log(error))
       );
+      this.serverService.getBudgets().subscribe(
+        (budgets:any)=>{this.budgetService.setBudgets(budgets); 
+          for(let budget of budgets){
+            this.serverService.getCategorieOfBudget(budget.budgetId).subscribe(
+            (categorie)=>{console.log(categorie); this.budgetService.setincludedCategories(budget.budgetId,categorie);});
+          }  
+        });
       
     };  
   

@@ -43,8 +43,13 @@ export class BudgetComponent implements OnInit {
         budgetID : this.budget.budgetId,
         categorieID : catId
       }
-      this.budget.includedCategories.push(this.categorieService.getElement(inputCat.value));
-      this.serverService.addCategorieToBudget(data).subscribe();
+
+     
+      this.serverService.addCategorieToBudget(data).subscribe(
+        (response)=>{
+          console.log(response['message']);          
+          if(response['message'] === 't'){ this.budget.includedCategories.push(this.categorieService.getElement(inputCat.value));}}
+      );
       
     }else{
       for(let i = 0; i < this.budget.includedCategories.length; i++){
@@ -57,7 +62,7 @@ export class BudgetComponent implements OnInit {
       categorieID : this.categorieService.getIdOf(inputCat.value)
       }
       this.budget.includedCategories.push(this.categorieService.getElement(inputCat.value));
-      console.log(this.budget.includedCategories);
+      
     
       this.serverService.addCategorieToBudget(data).subscribe();
     }
@@ -65,15 +70,17 @@ export class BudgetComponent implements OnInit {
   }
 
   onChangeAmount(newAmount) {
+
+
     let data={
-      ID: this.budget.budgetId,
+      id: this.budget.budgetId,
       value: newAmount.value
     }
-    this.budget.budgetAmount = newAmount.value;
+   
     this.valueChanged = true;
-    console.log('change amount' + data.ID)
-    this.serverService.updateBudgetAmount(data).subscribe();
     
+    this.serverService.updateBudgetAmount(data).subscribe();
+    this.budgetService.setAmount(data.id, data.value);
   }
 
   onDeleteBudget(){

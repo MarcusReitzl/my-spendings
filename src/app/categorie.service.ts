@@ -46,6 +46,7 @@ getElement(name){
 
 setID(id){ 
     this.categorie[this.categorie.length-1] = id;
+    this.valueChanged.next();
 }
 
 }

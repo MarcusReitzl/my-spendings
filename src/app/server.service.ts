@@ -40,7 +40,7 @@ constructor(private http: HttpClient) { }
 
   postBudget(data){ return this.http.post(this.baseurl + 'budgets',  data, this.httpOptions); };
 
-  updateBudgetAmount(data){ return this.http.put(this.baseurl + 'budgets/update/' + data.ID, data, this.httpOptions); };
+  updateBudgetAmount(data){ return this.http.put(this.baseurl + 'budgets/update/' + data.id, data, this.httpOptions); };
 
   deleteBudget(data:number){ console.log(data+ ' und gefeuert'); return this.http.delete(this.baseurl + 'budgets/' + data, this.httpOptions); };
 

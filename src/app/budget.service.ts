@@ -38,18 +38,18 @@ export class BudgetService {
     setincludedCategories(id, categories){
         let cats = [];
         for(let cat of categories){
-        cats.push({id: cat.Id, name: cat.name});
+        cats.push({id: cat.Id, name: cat.name, amount: cat.amount});
         }
         for(let budget of this.budgets){
             if(budget.budgetId === id){
                 budget.includedCategories = cats
             }
         }
+        this.budgetChanged.next();
     }
     
     deleteBudget(id){
         for(let i =0; i < this.budgets.length; i++){
-            console.log(this.budgets[i].budgetId + ' '+ id)
             if(this.budgets[i].budgetId.toString() === id.toString()){
                 this.budgets.splice(i,1);
                 this.budgetChanged.next(this.budgets);
@@ -79,5 +79,15 @@ export class BudgetService {
                 return this.budgets[i].budgetId;
             }
         }
+    }
+
+    setAmount(id, amount){
+        for(let budget of this.budgets){
+          if(budget.budgetId === id){
+                budget['value'] = amount;
+                
+            }
+        }
+        this.budgetChanged.next(this.budgets);
     }
 }

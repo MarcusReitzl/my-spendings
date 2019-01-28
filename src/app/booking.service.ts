@@ -23,10 +23,8 @@ export class BookingService{
             kategorie: kategorie,
             
         }
-
         
         this.bookings.push(booking);
-
         this.bookingchanged.next(this.bookings);
     }
     
@@ -54,8 +52,9 @@ export class BookingService{
     deleteBooking(id){
     for(let i=0; i < this.bookings.length; i++){
         if(this.bookings[i].id === id){
-            console.log(this.bookings[i].id);
+            
             this.bookings.splice(i,1);
+
             this.bookingchanged.next(this.bookings);
 
         }

@@ -113,13 +113,15 @@ router.put('/update/:id', checkAuth, (req, res) => {
     let amount = req.body['value'];
     
 
+    
+
     query = `UPDATE budgets SET Amount = ? WHERE userID = ? AND Id = ?`;
     connection.query(query,[amount, userID, budgetID], (err)=>{
         if(err){
             res.sendStatus(500);
         }else{
             console.log('sent 200')
-            res.sendStatus(200);
+            res.status(200).json({message: 'Budget gesetzt'});
         }
     });
 });
