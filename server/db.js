@@ -4,8 +4,6 @@ let mysql = require('mysql');
 let _db;
 
 let initDb = new Promise((resolve, reject) => {
-
-    
     _db = mysql.createConnection({
       host     : cfg.database.host,
       user     : cfg.database.user,
@@ -13,7 +11,6 @@ let initDb = new Promise((resolve, reject) => {
       database : cfg.database.db
     });
 
-    
     _db.connect(function(error){
         if(error){
             reject(console.log(error));
@@ -22,9 +19,7 @@ let initDb = new Promise((resolve, reject) => {
             resolve(console.log("Database is connected..."));
         }
     });
-   
 });
-
 
 function getDb() {
     if (!_db) {

@@ -10,6 +10,7 @@ export class BudgetService {
 
     onAddBudget(budget: Budget){
         this.budgets.push(budget);
+        this.budgetChanged.next();
     }
 
     getBudgets(){
@@ -70,6 +71,13 @@ export class BudgetService {
     }
     addCategorie(data){
         console.log(data);
-        
+    }
+
+    getIdOf(name){
+        for(let i = 0; i < this.budgets.length; i++){
+            if(this.budgets[i].budgetName === name){
+                return this.budgets[i].budgetId;
+            }
+        }
     }
 }

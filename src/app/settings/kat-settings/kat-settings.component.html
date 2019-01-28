@@ -3,44 +3,38 @@
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2"><h3>Kategorie hinzufügen:</h3></div>
   </div>
-  
+<form>
   <div class="row">
-    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+    <div class="form-group col-xs-12 col-sm-10 col-md-4 col-sm-offset-1 col-md-offset-2">
       <label>Bezeichnung:</label>
-    </div>
-    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-      <input type="text" #inputKategorie>
+      <input class="form-control col-sm-2" type="text" #inputKategorie required>
     </div>
   </div>
-  <br>
+</form>
+<br>
+<div class="row">
+  <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+    <button class="btn btn-primary" (click)="onAddCat(inputKategorie)">Hinzufügen</button>
+  </div>      
+</div>
+<div class="col-xs-12 col-sm-8 col-md-8 col-sm-offset-5 col-md-offset-0"><hr width="70%"></div>
+<div class="row">
+  <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2"><h3>Kategorie entfernen:</h3></div>   
+</div>
+
+<form>
   <div class="row">
-    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-      <button class="btn btn-primary" (click)="onAddCat(inputKategorie)">Hinzufügen</button>
-    </div>      
-  </div>
-    <div class="col-xs-12 col-sm-8 col-md-8 col-sm-offset-5 col-md-offset-0"><hr width="70%"></div>
-      
-    
-    
- 
- 
-  <div class="row">
-      <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2"><h3>Kategorie entfernen:</h3></div>   
-  </div>
-    
-    <div class="row">
-      <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-        <label>Kategorie:</label>
-      </div>
-      <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-        <select #inputSelKat>
-          <option value = "unselected"> Auswählen </option>
-          <option *ngFor="let kat of categories" [value] = "kat.name">
-            {{ kat.name }}
-          </option>
-        </select>
-     </div>
+    <div class="form-group col-xs-12 col-sm-10 col-md-4 col-sm-offset-1 col-md-offset-2">
+      <label>Kategorie:</label>
+      <select class="form-control" #inputSelKat>
+        <option value = "unselected"> Auswählen </option>
+        <option *ngFor="let kat of categories" [value] = "kat.name">
+          {{ kat.name }}
+        </option>
+      </select>
     </div>
+  </div>
+</form>
      <br>
      <div class="row">
      <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">

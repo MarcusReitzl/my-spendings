@@ -7,6 +7,7 @@ export class CategorieService{
 
 onAddCategorie(inputKategorie){
     this.categorie.push(new Categorie(inputKategorie));
+    this.valueChanged.next();
 }
 
 getCategories(){

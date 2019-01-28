@@ -1,23 +1,33 @@
 import { Booking } from './shared/booking.model'
 import { Injectable } from '@angular/core';
 import { ServerService } from './server.service';
-import { Response } from '@angular/http';
 import { Subject } from 'rxjs';
 
 @Injectable()
 export class BookingService{
-    booking: Booking;
+ 
     bookingchanged = new Subject<Booking[]>();
     latest:number;
-    bookings: Booking[] = [];
+    bookings: any[] = [];
 
     
 
-    constructor(private serverService: ServerService){ }
+    constructor(){ }
 
     onAddNew(text: string, value: number, type: string, kategorie:string){
-        this.booking = new Booking(text, value, type, kategorie, new Date().toISOString().split("T")[0])
-        this.bookings.push(this.booking);
+        // this.booking = new Booking(text, value, type, kategorie, new Date().toISOString().split("T")[0]);
+        let booking = {
+            id: null,
+            text: text,
+            value: value,
+            kategorie: kategorie,
+            
+        }
+
+        
+        this.bookings.push(booking);
+
+        this.bookingchanged.next(this.bookings);
     }
     
     getBookings(){
@@ -25,8 +35,12 @@ export class BookingService{
     }
 
     setBookings(booking: Booking[]){
+
         this.bookings = booking;
-        this.bookingchanged.next(booking);   
+        for(let book of booking){
+            book.date = book.date.split("T")[0];
+        }
+        this.bookingchanged.next(this.bookings);   
     }
 
     getSingleBooking(id){
@@ -35,6 +49,18 @@ export class BookingService{
                 return booking;
             }
         }
+    }
+
+    deleteBooking(id){
+    for(let i=0; i < this.bookings.length; i++){
+        if(this.bookings[i].id === id){
+            console.log(this.bookings[i].id);
+            this.bookings.splice(i,1);
+            this.bookingchanged.next(this.bookings);
+
+        }
+    }
+
     }
    
     

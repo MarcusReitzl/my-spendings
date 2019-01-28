@@ -23,7 +23,7 @@ router.get('/', checkAuth, (req, res)=>{
             res.sendStatus(500);
             console.log(err);
         } else if(row.length === 0) {
-            res.status(404);
+            res.sendStatus(404);
         } else {
             let data = [];
            
@@ -39,81 +39,79 @@ router.get('/', checkAuth, (req, res)=>{
     });
 });
 
-router.post('/save', checkAuth, (req, res) =>{
+router.post('/', checkAuth, (req, res) =>{
     //set Values
     let budgetName = req.body['name'];
     let userID = req.userId;
     let amount = req.body['amount'];
     
     //check for existing categorie
-    query= `SELECT * FROM budgets WHERE userID = ? and Name = ?`;
-    connection.query(query,[userID, budgetName],(err, row)=>{
-        if(err){
-            res.sendStatus(500);
-        }else if(row.length > 0 ){
-            res.status(200).json({message: 'Budget already exists!'})
-        } else {
-            insertQuery=`INSERT INTO budgets (Name, userID, Amount) VALUES (?, ?, ?)`;
-            connection.query(insertQuery,[budgetName, userID, amount], (err)=>{
+    // query= `SELECT * FROM budgets WHERE userID = ? and Name = ?`;
+    // connection.query(query,[userID, budgetName],(err, row)=>{
+    //     if(err){
+    //         res.sendStatus(500);
+    //     }else if(row.length > 0 ){
+    //         res.status(200).json({message: 'Budget already exists!'})
+    //     } else {
+    console.log(userID);
+    
+    
+            insertQuery=`INSERT INTO budgets (Name, Amount, userID ) VALUES (?, ?, ?)`;
+            connection.query(insertQuery,[budgetName, amount, userID], (err)=>{
                 if(err){
                     res.sendStatus(500);
                 } else {
-                    getInsertedID = `SELECT Id as id FROM budgets WHERE Name = ? and userID = ?`;
-                    connection.query(getInsertedID,[budgetName, userID], (err, row)=>{
+                    getInsertedID = `SELECT Id as budgetId, Name as budgetName, Amount as value FROM budgets WHERE userID = ?`;
+                    connection.query(getInsertedID,[userID], (err, row)=>{
                         if(err){
-                            res.status(500);
+                            res.sendStatus(500);
                         } else {
-                            
-                            res.status(200).json(row[0].id);
+                            let data = []
+                            for(let budget of row){
+                                    data.push( {budgetId: budget.budgetId, 
+                                        budgetName:budget.budgetName, 
+                                        value: budget.value, 
+                                        includedCategories: []})
+                            }
+                           
+                            res.status(200).json(data);
                         }
                     })
                 }
             })
-        }
-    })    
+   //     }
+  //  })    
 });
 
-router.delete('/delete/:id', checkAuth, (req, res)=>{
+router.delete('/:id', checkAuth, (req, res)=>{
     let userID = req.userId;
     let budgetID = req.params.id;
-    
-    let querySelect = `SELECT Name FROM budgets WHERE Id = ? `;
-    connection.query(querySelect,[budgetID],(err,row)=>{
+    console.log('hello, im delete');
+
+    let queryDeletCat = `DELETE FROM budgets WHERE userID = ? AND Id = ? `;
+    connection.query(queryDeletCat, [userID, budgetID], (err)=>{
         if(err){
-            console.log('hello')
+            console.log('there')
             res.sendStatus(500);
-        }else if(row.length === 0){
-            res.sendStatus(404);
-        }else{
-            console.log('helloo')
-            let budgetName = row[0].Name;
-            let queryDeletCat = `DELETE FROM budgets WHERE userID = ? AND Id = ? `;
-            connection.query(queryDeletCat, [userID, budgetID], (err)=>{
+        } else {
+            let queryUpdateBudgetId = `UPDATE categories SET BudgetId = 0 WHERE BudgetId = ? AND userID = ?`
+            connection.query(queryUpdateBudgetId,[budgetID, userID], (err, row)=>{
                 if(err){
-                    console.log('hellooo')
                     res.sendStatus(500);
-                } else {
-                    console.log(budgetName);
-                    let queryUpdateBudgetId = `UPDATE categories SET BudgetId = 0 WHERE BudgetId = ? AND userID = ?`
-                    connection.query(queryUpdateBudgetId,[budgetID, userID], (err, row)=>{
-                        if(err){
-                            res.sendStatus(500);
-                        }else{
-                            console.log('hellooo')
-                            res.sendStatus(200);
-                        }
-                    })
+                }else{
+                    console.log('here');
+                    res.status(200).json(row);
                 }
-            });
+            })
         }
-    })  
+    });
 });
 //put to update Amount
 router.put('/update/:id', checkAuth, (req, res) => {
     let budgetID = req.params.id;
     let userID = req.userId;
     let amount = req.body['value'];
-    console.log(budgetID);
+    
 
     query = `UPDATE budgets SET Amount = ? WHERE userID = ? AND Id = ?`;
     connection.query(query,[amount, userID, budgetID], (err)=>{

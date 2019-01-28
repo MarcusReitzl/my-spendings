@@ -22,7 +22,7 @@ router.get('/', checkAuth, (req, res)=>{
         if(err){
             res.sendStatus(500);
         } else if(row.length === 0) {
-            res.status(404);
+            res.sendStatus(404);
         } else {
             res.status(200).json(row);
             
@@ -54,7 +54,7 @@ router.post('/save', checkAuth, (req, res) =>{
                     connection.query(getInsertedID,[categorie, userID], (err, row)=>{
                         if(err){
                             
-                            res.status(500);
+                            res.sendStatus(500);
                         } else {
                             console.log(row);
                             res.status(200).json(row);
@@ -76,11 +76,11 @@ router.get('/budgetCat/:id', checkAuth, (req, res)=>{
     connection.query(query,[budgetID, userID], (err, row) =>{
         if(err){
             res.sendStatus(500);
-            console.log(err);
+            
         } else if(row.length === 0) {
-            res.status(200);
+            res.sendStatus(200);
         } else {
-            console.log(row);
+            
             res.status(200).json(row);
         }
     });
@@ -105,8 +105,10 @@ queryDeletCat = `DELETE FROM categories WHERE Id = ?`
 router.put('/update/:id', checkAuth, (req, res) => {
     let catID = req.params.id;
     let userID = req.userId;
-    let amount = req.body['amount'];
+    let amount = req.body.amount;
+    
 
+    
     query = `UPDATE categories SET amount = amount + ? WHERE Id = ? AND userID = ?`;
     connection.query(query,[amount, catID, userID], (err, row)=>{
         if(err){
@@ -139,7 +141,7 @@ router.put('/budgetID/:id', checkAuth, (req, res)=> {
                     res.sendStatus(200);
                 }
             })
-        }else if(row.length > 0){ 
+        } else if(row.length > 0){ 
             for(let i = 0; i < row.length; i++){
                 if(row[i].BudgetId === budgetID){
                     res.status(400).json({message: 'Already done'})
@@ -158,9 +160,7 @@ router.put('/budgetID/:id', checkAuth, (req, res)=> {
             }
         } 
     })
-
-    
-    });
+});
 
 
 module.exports = router;

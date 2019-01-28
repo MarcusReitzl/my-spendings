@@ -1,34 +1,37 @@
 <div class="container">
-  <div class="row">
-    <canvas id="chart" #lineChart> {{chart}} </canvas>
-  </div>
-  <hr>
-  <div class="row">
-    <div class="col-sm-2"><label>Betrag:</label></div>
-    <input type="number" name="" id="" value="0.0" #inputNumber>
-  </div>
+ 
 
+<form>
   <div class="row">
-      <div class="col-sm-2"><label>Buchungstext:</label></div>
-    <input type="text" name="" id="" value="Name" #inputText>
-  </div>
-
-  <div class="row">
-      <div class="col-sm-2"><label>Kategorie:</label></div>
-    <select #inputKategorie >
+    <div class="form-group col-sm-2">
+      <label>Betrag:</label>
+      <input class="form-control" type="number" name="" id="" value="0.0" #inputNumber>
+    </div>
+    <div class="form-group col-sm-2">
+      <label>Buchungstext:</label>
+      <input class="form-control" type="text" name="" id="" value="Name" #inputText>
+    </div>
+    <div class="form-group col-sm-2"><label>Kategorie:</label>
+      <select class="form-control" #inputKategorie>
           <option value="unselected">Auswählen</option>
-          <option *ngFor="let kat of categorieArray" [value] = "kat.name">
-          {{ kat.name }}
-        </option>
-    </select>
+          <option *ngFor="let kat of categorieArray" [value] = "kat.name">{{ kat.name }}</option>
+      </select>
+    </div>  
+  </div>
+</form>
+  <div class="row">
+    <div class="col-sm-2">
+    <button class="btn btn-danger"  (click)="onAddAusgaben(inputText, inputNumber, inputKategorie)">Ausgaben</button>
+    <!-- <button class="btn btn-primary"  (click) ="onAddEinnahmen(inputText, inputNumber, inputKategorie)">Einnahmen</button>  -->
+    </div>
   </div>
 
-  <div class="row">
-    <button class="btn btn-danger"  (click)="onAddAusgaben(inputText, inputNumber, inputKategorie)">Ausgaben</button>
-    <button class="btn btn-primary"  (click) ="onAddEinnahmen(inputText, inputNumber, inputKategorie)">Einnahmen</button> 
-  </div>
-  <hr>
+<hr>
   <div class="row">
     <p *ngIf="bookingResponse" >{{ bookingResponse }}</p>
   </div>
 </div>
+
+
+<div class="col-sm-6 col-md-offset-2"><canvas id="chart" #lineChart> {{chart}} </canvas></div>
+

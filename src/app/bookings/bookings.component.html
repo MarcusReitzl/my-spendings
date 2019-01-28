@@ -1,68 +1,85 @@
 <div class="container">
-  <div class="row">
-    <div class="col-sm-4">
-      <label for="">von: </label>
-      <input type="date" name="" id="" #inputFromDate>
+  <form>
+    <div class="row">
+      <div class="form-group col-sm-2">
+        <label for="">von: </label>
+        <input class="form-control" type="date" name="" id="" #inputFromDate>
+      </div>
+      
+      <div class="form-group col-sm-2">
+        <label for="">bis: </label>
+        <input class="form-control" type="date" name="" id="" #inputToDate>
+      </div>
+
+      <div class="form-group col-sm-2">
+        <label for="">Kategorie: </label>
+        <select class="form-control" #inputSelKat>
+          <option value = "unselected"> Auswählen </option>
+          <option *ngFor="let kat of categorieArray" [value] = "kat.name">
+            {{ kat.name }}
+          </option>
+      </select>
+      </div>
     </div>
-    
-    <div class="col-sm-4">
-      <label for="">bis: </label>
-      <input type="date" name="" id="" #inputToDate>
+  </form>    
+
+    <div class="row">
+      <div class="col-sm-1">
+        <button class="btn btn-primary" (click)="onSetFilter(inputFromDate, inputToDate, inputSelKat)">Set Filter</button>
+      </div>
+      <div class="col-sm-2">
+        <button class="btn btn-danger" (click)="onClearFilter()">Clear Filter</button>
+      </div>
     </div>
 
-    <div class="col-sm-6">
-      <label for="">Kategorie: </label>
-      <select #inputSelKat>
-        <option value = "unselected"> Auswählen </option>
-        <option *ngFor="let kat of categorieArray" [value] = "kat">
-          {{ kat.name }}
-        </option>
-    </select>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-sm-5">
-      <button class="btn btn-primary" (click)="onSetFilter(inputFromDate, inputToDate, inputSelKat)">Set Filter</button>
-      <button class="btn btn-danger" (click)="onClearFilter()">Clear Filter</button>
-    </div>
-   </div>
-  
    <hr>
   
    <ng-container *ngIf="showFilter === false">
   
-    <div class="row"  >
-        
+    <div class="row">
         <!-- <div class="col-sm-2"> {{ booking.date }} </div>
         <div class="col-sm-2"> {{ booking.text }} </div>
         <div class="col-sm-2"> {{ booking.value }} € </div>
         <div class="col-sm-2"> {{ booking.kategorie }} </div> -->
-        <div class="list-group">
+        <div class="list-group col-md-12" *ngIf="bookings.length > 0">
         <a
         class="list-group-item"
         *ngFor="let booking of bookings"
         [routerLink]="['booking', booking.id]" 
-        [ngStyle]='{color: booking.type === "Einnahmen" ? "green" : "red" }'>
-        {{ booking.date }}
-        {{ booking.text }}
-        {{ booking.value }}
-        {{ booking.kategorie }}
+        >
+        <!-- [ngStyle]='{color: booking.type === "Einnahmen" ? "green" : "red" }' -->
+        <div class="row">
+        <div class="col-sm-2 col-sm-offset-2">{{ booking.date }}</div>
+        <div class="col-sm-2">{{ booking.text }}</div>
+        <div class="col-sm-2">{{ booking.value }} € </div>
+        <div class="col-sm-2">{{ booking.kategorie }}</div>
+      </div>
         </a>
       </div>
 
-      <router-outlet></router-outlet>
+      
   </div>
   </ng-container>
 
   <ng-container *ngIf="showFilter === true">
-  <div class="row" *ngFor="let booking of filterBookings" [ngStyle]='{color: booking.type === "Einnahmen" ? "green" : "red" }'>
-    <!-- <div class="col-sm-2"> {{ booking.PosId }} </div> -->
-    <div class="col-sm-2"> {{ booking.date }} </div>
-    <div class="col-sm-2"> {{ booking.text }} </div>
-    <div class="col-sm-2"> {{ booking.value }} € </div>
-    <div class="col-sm-2"> {{ booking.kategorie }} </div>
-  </div>
+    <div class="row">
+      <div class="list-group col-md-12" *ngIf="bookings.length > 0">
+          <a class="list-group-item"
+          *ngFor="let booking of filterBookings"
+          [routerLink]="['booking', booking.id]" 
+          >
+          <!-- [ngStyle]='{color: booking.type === "Einnahmen" ? "green" : "red" }' -->
+          <div class="row">
+          <div class="col-sm-2 col-sm-offset-2">{{ booking.date }}</div>
+          <div class="col-sm-2">{{ booking.text }}</div>
+          <div class="col-sm-2">{{ booking.value }} € </div>
+          <div class="col-sm-2">{{ booking.kategorie }}</div>
+        </div>
+          </a>
+        </div>
+  
+        
+    </div>
   </ng-container>
 
 </div>

@@ -1,29 +1,31 @@
 <div class="container">
   
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2"><h3>Budget hinzufügen:</h3></div>
+  </div>
+
+  <form>
     <div class="row">
-      <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2"><h3>Budget hinzufügen:</h3></div>
-    </div>
-    
-    <div class="row">
-      <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <div class="form-group col-xs-12 col-sm-10 col-md-4 col-sm-offset-1 col-md-offset-2">
         <label>Bezeichnung:</label>
-        </div>
-        <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-        <input type="text" #inputBudName>
+        <input class="form-control" type="text" #inputBudName required>
       </div>
     </div>
+
     <div class="row">
-      <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <div class="form-group col-xs-12 col-sm-10 col-md-4 col-sm-offset-1 col-md-offset-2">
         <label>Betrag:</label>
-        </div>
-        <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-        <input type="number" #inputBudAmount>
+        <input class="form-control" type="number" #inputBudAmount required>
       </div>
     </div>
+
     <br>
+
+  </form>
+  
     <div class="row">
       <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-        <button class="btn btn-primary" (click)="onAddBudget(inputBudName, inputBudAmount)">Hinzufügen</button>
+        <button input="button" class="btn btn-primary" (click)="onAddBudget(inputBudName, inputBudAmount)">Hinzufügen</button>
       </div>
     </div>
     
@@ -41,7 +43,7 @@
           
          
           <a
-          class="list-group-item"
+          class="list-group-item col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-0"
           *ngFor="let budget of budgets"
           [routerLink]="['budget', budget.budgetId]">
            {{ budget.budgetName }}

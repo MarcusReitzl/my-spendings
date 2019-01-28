@@ -25,8 +25,6 @@ app.use("/login", loginRoutes);
 app.use("/categories", categorieRoutes);
 app.use("/budgets", budgetRoutes);
 
-
-
 db.initDb.then(() => {
   app.listen(cfg.server.port, () => {
     console.log("Listening on port " + cfg.server.port + "...");

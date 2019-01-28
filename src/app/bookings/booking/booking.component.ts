@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BookingService } from 'src/app/booking.service';
 import { CategorieService } from 'src/app/categorie.service';
 import { ServerService } from 'src/app/server.service';
@@ -17,10 +17,10 @@ id;
   constructor(private route: ActivatedRoute, 
     private bookingService:BookingService, 
     private categorieService: CategorieService,
-    private serverService: ServerService) { }
+    private serverService: ServerService,
+    private router:Router) { }
 
   ngOnInit() {
-    
     let sub = this.route.params.subscribe(params => {
       this.id = +params['id']; 
       this.booking = this.bookingService.getSingleBooking(this.id);
@@ -29,10 +29,7 @@ id;
       this.categories = this.categorieService.getCategories();
       this.categorieService.valueChanged.subscribe(
         ()=>(this.categories=this.categorieService.getCategories())
-      );
-
-        
-      
+      );      
   }
 
   onChangeBooking(buchungstext, buchungsbetrag, kategorie){
@@ -45,13 +42,14 @@ id;
       katId: katId
     }
     
-    this.serverService.updateBooking(data).subscribe((response)=>(console.log(response)));
+    this.serverService.updateBooking(data).subscribe((response: any[])=>(this.bookingService.setBookings(response)));
 
 
   }
   onDeleteBooking(){
     this.serverService.deleteBooking(this.id).subscribe(
-      (response) => (console.log(response))
-    )
+      (response: any[]) => (this.bookingService.setBookings(response))
+    );
+    this.router.navigate(['bookings']);
   }
 }

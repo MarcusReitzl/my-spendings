@@ -42,14 +42,13 @@ function get(id, userId) {
 
 function remove(id, userId) {
   return new Promise((resolve, reject) => {
-    console.log(id +' ' + userId);
     const query =
       'DELETE FROM bookings WHERE Id = ? AND UserId = ? ';
     connection.query(query,[id,userId],(error, results)=>{
       if (error){
         reject(error)
       } else {
-        resolve(results);
+        resolve(getAll(userId));
       }
     });
   });
@@ -66,12 +65,12 @@ function save(booking,userId){
 function insert(booking, userId) {
   return new Promise((resolve, reject) => {
     const query =
-      'INSERT INTO bookings (Name, Date, Price, KatId, UserId) VALUES (?, ?, ?, ?, ?)';
-    connection.query(query, [booking.name, booking.date, booking.price, booking.katId, userId],(error,results) => {
+      'INSERT INTO bookings (Name, Date, price, katId, UserId) VALUES (?, ?, ?, ?, ?)';
+    connection.query(query, [booking.name, booking.date, booking.amount, booking.katId, userId],(error,results) => {
       if (error) {
         reject(error);
       } else {
-        resolve(results);
+        resolve(getAll(userId));
       }
     });
   });
@@ -82,11 +81,11 @@ function update(booking, userId) {
     
       const query =
       'UPDATE Bookings SET Name = ?, Date = ?, Price = ?, katId = ?, UserId = ? WHERE Id = ?';
-        connection.query(query,[booking.name, booking.date, booking.price, booking.katId, userId, booking.id], (error, results) => {
+        connection.query(query,[booking.name, booking.date, booking.amount, booking.katId, userId, booking.id], (error, results) => {
         if (error) {
           reject(error);
         } else {
-          resolve(results);
+          resolve(getAll(userId));
         }
       },
     );

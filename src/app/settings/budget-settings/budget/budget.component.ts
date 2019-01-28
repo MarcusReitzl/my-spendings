@@ -79,11 +79,11 @@ export class BudgetComponent implements OnInit {
   onDeleteBudget(){
 
    let budID = this.route.snapshot.params['id'];
-  
-   this.serverService.deleteBudget(budID).subscribe((response)=>{console.log(response);
-   }),(error)=>(console.log(error));
+    this.serverService.deleteBudget(budID).subscribe((response)=>{this.budgetService.deleteBudget(budID),(error)=>(console.log(error)
+    );
+   });
    
-   this.budgetService.deleteBudget(budID);
+   
    this.router.navigate(['settings/budgets']);
   }
 

@@ -28,21 +28,21 @@ constructor(private http: HttpClient) { }
 
   getBookings() { return this.http.get(this.baseurl + 'booking', this.httpOptions); };
 
-  postBookings(booking){ 
-     return this.http.post(this.baseurl + 'booking', booking, this.httpOptions); };
+  postBookings(booking){ return this.http.post(this.baseurl + 'booking', booking, this.httpOptions); };
 
   updateBooking(data) { return this.http.put(this.baseurl + 'booking/' + data.id, data, this.httpOptions)};
 
-  deleteBooking(data){return this.http.delete(this.baseurl + 'booking/' + data, this.httpOptions )};
+  deleteBooking(data){ return this.http.delete(this.baseurl + 'booking/' + data, this.httpOptions )};
+
 // ------------------------------------  Budget Operations  -----------------------------------------
 
   getBudgets(){ return this.http.get(this.baseurl + 'budgets', this.httpOptions); };
 
-  postBudget(data){ return this.http.post(this.baseurl + 'budgets/save',  data, this.httpOptions); };
+  postBudget(data){ return this.http.post(this.baseurl + 'budgets',  data, this.httpOptions); };
 
   updateBudgetAmount(data){ return this.http.put(this.baseurl + 'budgets/update/' + data.ID, data, this.httpOptions); };
 
-  deleteBudget(data:number){ return this.http.delete(this.baseurl + 'budgets/delete/' + data, this.httpOptions); };
+  deleteBudget(data:number){ console.log(data+ ' und gefeuert'); return this.http.delete(this.baseurl + 'budgets/' + data, this.httpOptions); };
 
 // ------------------------------------  Categorie Operations  -----------------------------------------
 
@@ -52,7 +52,7 @@ constructor(private http: HttpClient) { }
 
   deleteCategorie(data){ return this.http.delete(this.baseurl + 'categories/delete/' + data.id, this.httpOptions)}; 
 
-  updateCategorieAmount(data){ return this.http.put(this.baseurl + 'categories/update/' + data.id, data.amount, this.httpOptions);};
+  updateCategorieAmount(data){ console.log(data); return this.http.put(this.baseurl + 'categories/update/' + data.katId, data, this.httpOptions);};
 
   addCategorieToBudget(data){ return this.http.put(this.baseurl + 'categories/budgetID/' + data.categorieID, data, this.httpOptions); };
 

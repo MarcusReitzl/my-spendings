@@ -30,7 +30,7 @@ connection.query(query,[user, pass], (err, row) => {
         }
         jwt.sign(userdata, 'secretkey' ,(err, token)=>{
             if(err){
-                res.status(500);
+                res.sendStatus(500);
             }else{
                 res.status(200).json({token});
             }

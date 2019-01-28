@@ -37,7 +37,7 @@ function deleteAction(request, response) {
   
   model.remove(id, request.userId).then(
     results => {
-      response.status(200).json({message:"Buchung wurde gelöscht"});
+      response.status(200).json(results);
     },
     error => response.send(error),
 
@@ -48,9 +48,9 @@ function deleteAction(request, response) {
 function updateAction(request, response) {
   const booking = {
     id: request.params.id,
-    name: request.body.name,
+    name: request.body.text,
     date: request.body.date,
-    price: request.body.price,
+    amount: request.body.amount,
     katId: request.body.katId
   };
   model.save(booking,request.userId).then(
@@ -64,9 +64,11 @@ function createAction(request, response) {
   const booking = {
     name: request.body.text,
     date: request.body.date,
-    price: request.body.value,
+    amount: request.body.amount,
     katId: request.body.katId,
   };
+  console.log(booking);
+
   model.save(booking,request.userId).then(
     booking => response.status(200).json(booking),
     error => response.status(500).json(error),
