@@ -58,6 +58,10 @@ constructor(private http: HttpClient) { }
 
   getCategorieOfBudget(data){ return this.http.get(this.baseurl + `categories/budgetCat/` + data, this.httpOptions); };
 
+  withdrawCategorie(data){ console.log(data);
+  
+   return this.http.put( this.baseurl + 'categories/withdraw/' + data.id, data, this.httpOptions); };
+
   // ------------------------------------  Set Token  -----------------------------------------
 
   setToken(token:string){ this.httpOptions.headers = this.httpOptions.headers.set('Authorization', 'Bearer ' + token); };

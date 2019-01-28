@@ -17,6 +17,7 @@ export class BudgetComponent implements OnInit {
   categories: Categorie[] = [];
   valueChanged: boolean = false;
   
+  
 
   constructor(private budgetService: BudgetService,
     private route: ActivatedRoute, 
@@ -65,9 +66,16 @@ export class BudgetComponent implements OnInit {
       
     
       this.serverService.addCategorieToBudget(data).subscribe();
-    }
+
+      this.budgetService.addCategorie(this.budget.budgetId, inputCat);
+          }   
+        }
+      
+
+
     
-  }
+    
+  
 
   onChangeAmount(newAmount) {
 
@@ -90,10 +98,27 @@ export class BudgetComponent implements OnInit {
     );
    });
    
-   
+
    this.router.navigate(['settings/budgets']);
   }
 
+  onWithDrawCat(id){
+    console.log(id);
+    let data = {id: id}
+    
+    this.serverService.withdrawCategorie(data).subscribe(
+      (response)=>{console.log(response)}  
+      );
+      
+    this.serverService.getBudgets().subscribe(
+      (budgets:any)=>{this.budgetService.setBudgets(budgets); 
+        for(let budget of budgets){
+          this.serverService.getCategorieOfBudget(budget.budgetId).subscribe(
+          (categorie)=>{console.log(categorie); this.budgetService.setincludedCategories(budget.budgetId,categorie);});
+          this.categorieService.valueChanged.next();
+        }   
+      }
+    )
+    this.router.navigate(['settings/budgets']);
+  }
 }
-
-

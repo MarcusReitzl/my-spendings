@@ -52,9 +52,16 @@
       <br>
     </div>
 
-  <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+  <!-- <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
     <p *ngFor="let budCat of budget.includedCategories">{{ budCat.name }}</p>
-  </div>
+  </div> -->
+  <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+  
+ 
+    <a class="list-group-item col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-0"  
+    *ngFor="let budCat of budget.includedCategories" (click)="onWithDrawCat(budCat.id)">{{ budCat.name }}</a>
+
+</div>
 
   <div class="col-xs-12 col-sm-8 col-md-8 col-sm-offset-5 col-md-offset-0"><hr width="70%"></div>
 

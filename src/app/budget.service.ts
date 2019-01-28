@@ -69,8 +69,15 @@ export class BudgetService {
         } 
     
     }
-    addCategorie(data){
-        console.log(data);
+    addCategorie(id, data){
+
+        for(let budget of this.budgets){
+            if(budget.budgetId === id){
+                this.budgetChanged.next();
+            }
+            
+        }
+      
     }
 
     getIdOf(name){

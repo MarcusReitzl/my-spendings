@@ -166,5 +166,22 @@ router.put('/budgetID/:id', checkAuth, (req, res)=> {
     )
 });
 
+router.put('/withdraw/:id', checkAuth, (req, res)=>{
+
+categorieId = parseInt(req.params.id, 10);
+userID = req.userId
+console.log(categorieId);
+console.log(userID);
+
+query=`UPDATE categories SET BudgetId = 0 WHERE Id = ? and userID = ?`
+connection.query(query,[categorieId, userID], (err, row)=>{
+    if(err){
+        res.sendStatus(500);
+    }else{
+        res.status("200").json({message: 'geändert'});
+    }
+})
+})
+
 
 module.exports = router;
