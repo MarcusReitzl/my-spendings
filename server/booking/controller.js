@@ -46,7 +46,7 @@ function deleteAction(request, response) {
 function updateAction(request, response) {
   const booking = {
     id: request.params.id,
-    name: request.body.text,
+    name: request.body.name,
     date: request.body.date,
     amount: request.body.amount,
     katId: request.body.katId

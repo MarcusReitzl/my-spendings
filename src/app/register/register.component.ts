@@ -19,7 +19,7 @@ export class RegisterComponent implements OnInit {
 
   onRegister(username, firstname, lastname, pass, passRepeat){
     if(pass.value !== passRepeat.value){
-      console.log('Checkpasswörter');
+      this.responseMessage = 'Passwörter überprüfen!'
       
     }else{
       let data = {

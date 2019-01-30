@@ -7,8 +7,8 @@ const cors = require('cors');
 const bookingRoutes = require('./booking');
 const registerRoutes = require('./routes/register');
 const loginRoutes = require('./routes/login');
-const categorieRoutes = require('./routes/categories');
-const budgetRoutes = require('./routes/budgets');
+const categorieRoutes = require('./categorie');
+const budgetRoutes = require('./budget');
 
 
 

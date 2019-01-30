@@ -43,24 +43,20 @@ dataAvailable: any[] = [];
       data: {
         labels: this.labels,
         datasets:[
-          {data:this.dataAvailable, label: 'available'},
-          {data:this.dataUsed, label:'used'}],
-       
-      }, 
-      
-      colors: [{
-        borderColor: 'blue',
-        fillColor: ['red','blue']}],
-      options:{
+          {data:this.dataAvailable, label: 'available', backgroundColor: '#FF8080', alpha: 0.5},
+          {data:this.dataUsed, label:'used', backgroundColor: '#8091FF', alpha: 0.5 }          
+        ],
+        options:{
+        
         scaleShowVerticalLines: false,
         responsive: true
       }
-    });
+    }
+  });
     
     this.budgetService.budgetChanged.subscribe(
-      ()=>{
-        console.log('budget changed fired');
-            
+      (budgets:any[])=>{
+        
         this.prepareArray();
         this.chart.update();
         this.chart.render(); 
@@ -69,21 +65,19 @@ dataAvailable: any[] = [];
 
     this.categorieService.valueChanged.subscribe(
       ()=>{
-        console.log('categorie changed fired');
-        
-
         this.prepareArray();
         this.chart.update();
         this.chart.render();
       }
     )
 }
+
   prepareArray(){
     this.dataUsed = [];
     this.dataAvailable = [];
     this.labels = [];
+    this.budgetService.getCategorieOfBudget();
 
-    this.budgets = this.budgetService.getBudgets();
     for(let budget of this.budgets){
       this.labels.push(budget.budgetName);
       this.dataAvailable.push(budget.value);
@@ -94,7 +88,7 @@ dataAvailable: any[] = [];
       }
      this.dataUsed.push(budgetUsedCounter);
     }
-    console.log(this.dataUsed);
+    
     
 
   }

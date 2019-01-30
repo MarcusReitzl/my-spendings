@@ -17,8 +17,6 @@ export class BudgetComponent implements OnInit {
   categories: Categorie[] = [];
   valueChanged: boolean = false;
   
-  
-
   constructor(private budgetService: BudgetService,
     private route: ActivatedRoute, 
     private categorieService:CategorieService,
@@ -33,92 +31,51 @@ export class BudgetComponent implements OnInit {
       this.categories = this.categorieService.getCategories();
       console.log(this.route.snapshot.params['id']);
       },(error) => (console.log(error)
-      ))
-  };
+      ));
 
-  onAddCat(inputCat){
-    
-    if(this.budget.includedCategories.length===0){
-      let catId = this.categorieService.getIdOf(inputCat.value);
-      let data = {
-        budgetID : this.budget.budgetId,
-        categorieID : catId
-      }
+      this.categorieService.valueChanged.subscribe(
+        ()=>{
+          this.budgetService.getCategorieOfBudget()}
+      )
+  }
 
-     
-      this.serverService.addCategorieToBudget(data).subscribe(
-        (response)=>{
-          console.log(response['message']);          
-          if(response['message'] === 't'){ this.budget.includedCategories.push(this.categorieService.getElement(inputCat.value));}}
-      );
-      
-    }else{
-      for(let i = 0; i < this.budget.includedCategories.length; i++){
-        if(this.budget.includedCategories[i].name === inputCat.value){
-          return  
-      }
-     }
-      let data = {
-      budgetID : this.budget.budgetId,
-      categorieID : this.categorieService.getIdOf(inputCat.value)
-      }
-      this.budget.includedCategories.push(this.categorieService.getElement(inputCat.value));
-      
-    
-      this.serverService.addCategorieToBudget(data).subscribe();
-
-      this.budgetService.addCategorie(this.budget.budgetId, inputCat);
-          }   
+  addCategorieToBudget(inputCat){  
+    let id = this.categorieService.getIdOf(inputCat.value);
+    this.serverService.getCategorie(id).subscribe(
+      (response: any) => {
+        if(response[0].BudgetId === 0){
+          let data = {
+            budgetId : this.budget.budgetId,
+            name: inputCat.value,
+            katId : this.categorieService.getIdOf(inputCat.value)
+          }
+          this.categorieService.addCategorieToBudget(data);
         }
-      
-
-
-    
-    
-  
+      }
+    );
+  }   
 
   onChangeAmount(newAmount) {
-
-
     let data={
       id: this.budget.budgetId,
-      value: newAmount.value
+      name: this.budget.budgetName,
+      amount: newAmount.value
     }
-   
     this.valueChanged = true;
+    this.budgetService.setAmount(data);
     
-    this.serverService.updateBudgetAmount(data).subscribe();
-    this.budgetService.setAmount(data.id, data.value);
   }
 
   onDeleteBudget(){
-
-   let budID = this.route.snapshot.params['id'];
-    this.serverService.deleteBudget(budID).subscribe((response)=>{this.budgetService.deleteBudget(budID),(error)=>(console.log(error)
-    );
-   });
-   
-
-   this.router.navigate(['settings/budgets']);
+      let budID = this.route.snapshot.params['id'];
+      this.budgetService.deleteBudget(budID);
+      this.router.navigate(['settings/budgets'])
   }
 
   onWithDrawCat(id){
-    console.log(id);
-    let data = {id: id}
-    
-    this.serverService.withdrawCategorie(data).subscribe(
-      (response)=>{console.log(response)}  
-      );
-      
-    this.serverService.getBudgets().subscribe(
-      (budgets:any)=>{this.budgetService.setBudgets(budgets); 
-        for(let budget of budgets){
-          this.serverService.getCategorieOfBudget(budget.budgetId).subscribe(
-          (categorie)=>{console.log(categorie); this.budgetService.setincludedCategories(budget.budgetId,categorie);});
-          this.categorieService.valueChanged.next();
-        }   
-      }
-    )
-    this.router.navigate(['settings/budgets']);
+    let katId = id;
+       this.categorieService.withdrawCategorieFromBudget(katId);
   }
+  
 }
+

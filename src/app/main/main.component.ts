@@ -25,13 +25,13 @@ export class MainComponent implements OnInit {
 
 
   constructor(private bookingservice: BookingService, 
-    private kategorieservice: CategorieService, 
+    private categorieService: CategorieService, 
     private serverService: ServerService,
     private budgetService: BudgetService) {
   }
 
   ngOnInit() {  
-    this.categorieArray = this.kategorieservice.getCategories();
+    this.categorieArray = this.categorieService.getCategories();
     this.prepareArray();
     
     this.chart = new Chart(this.chartRef.nativeElement, {
@@ -41,84 +41,53 @@ export class MainComponent implements OnInit {
         datasets: [
           {
             data: this.data,
-            borderColor: 'blue',
+            borderColor: 'black',
+            backgroundColor: ['#FF8080', '#8091FF', '#F7FF80', '#A6FF80' , '#DA80FF'],
             fill: false
           }]
       }
     });
 
-    this.bookingservice.bookingchanged
-    .subscribe(
-      ()=>{
-        this.categorieArray = this.kategorieservice.getCategories();
-        this.prepareArray();
-        this.chart.update();
-        this.chart.render();
-        }
-    )
-
-    this.kategorieservice.valueChanged
+    this.categorieService.valueChanged
     .subscribe(
       (categorie: Categorie[])=>{
-      this.categorieArray = this.kategorieservice.getCategories();
+      this.categorieArray = this.categorieService.getCategories();
       this.prepareArray();
       this.chart.update();
       this.chart.render();
       }
-    );
-   
-     
+    );    
   }
 
-
-  onAddAusgaben(inputText, inputNumber, inputKategorie) {
-    if(inputKategorie.value === 'unselected'){
+  onAddAusgaben(inputText, inputNumber, inputCategorie) {
+    if(inputCategorie.value === 'unselected'){
       this.bookingResponse = 'Bitte Kategorie auswählen.'
     } else {
-      //this.bookingservice.onAddNew(inputText.value, inputNumber.value, 'Ausgaben', inputKategorie.value);
-      this.bookingResponse = "Ausgang: " + inputText.value + " mit der Kategorie " + inputKategorie.value + " verbucht."
-      this.kategorieservice.addOutcome(inputKategorie.value, inputNumber.value);
+      this.bookingResponse = "Ausgang: " + inputText.value + " mit der Kategorie " + inputCategorie.value + " verbucht."
       
-      let katId = this.kategorieservice.getIdOf(inputKategorie.value);   
-      let data = {
-         
-        text: inputText.value,
-        katId: katId,   
-        amount: inputNumber.value,
-        date: new Date().toISOString().slice(0,19).replace("T", " ")
+      let catId = this.categorieService.getIdOf(inputCategorie.value)
+      let bookingText = inputText.value;
+      let bookingAmount = inputNumber.value;
+      let bookingCategorie = inputCategorie.value;
+      
+      let data = { 
+        text: bookingText,
+        katId: catId,   
+        amount: bookingAmount,
+        date: new Date()
       }
 
-      let updateData = {
-        katId: katId,
-        amount: inputNumber.value,
+      let categorieUpdate = {
+        katId: catId,
+        categorie: bookingCategorie,
+        amount: bookingAmount
       }
       
-      this.serverService.postBookings(data).subscribe(
-        (response: any[]) => (this.bookingservice.setBookings(response)
-        ));
-  
-      this.serverService.updateCategorieAmount(updateData).subscribe(
-      (response) =>(console.log(response)),
-      (error) => (console.log(error))
-      );
-      this.serverService.getBudgets().subscribe(
-        (budgets:any)=>{this.budgetService.setBudgets(budgets); 
-          for(let budget of budgets){
-            this.serverService.getCategorieOfBudget(budget.budgetId).subscribe(
-            (categorie)=>{console.log(categorie); this.budgetService.setincludedCategories(budget.budgetId,categorie);});
-          }  
-        });
-      
+      this.bookingservice.addBooking(data);
+      this.categorieService.updateSpendings(categorieUpdate);
     };  
-  
-    }
+  }
     
-  // onAddEinnahmen(inputText, inputNumber, inputKategorie) {
-  //   this.bookingservice.onAddNew(inputText.value, inputNumber.value, 'Einnahmen', inputKategorie.value);
-  //   this.bookingResponse = "Eingang: " + inputText.value + " mit der Kategorie " + inputKategorie.value + " verbucht."
-    
-  // };
-
   prepareArray(){
     for(let i = 0; i < this.categorieArray.length;i++){
       this.labels[i] = this.categorieArray[i].name;

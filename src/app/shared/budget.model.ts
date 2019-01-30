@@ -4,7 +4,7 @@ export class Budget{
     budgetId: number;
     budgetName: string;
     budgetAmount: number;
-    includedCategories: Categorie[] = [];
+    includedCategories: any[] = [];
    
 
 

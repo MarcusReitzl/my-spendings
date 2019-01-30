@@ -80,7 +80,7 @@ function update(booking, userId) {
   return new Promise((resolve, reject) => {
     
       const query =
-      'UPDATE Bookings SET Name = ?, Date = ?, Price = ?, katId = ?, UserId = ? WHERE Id = ?';
+      'UPDATE bookings SET Name = ?, Date = ?, price = ?, katId = ?, UserId = ? WHERE Id = ?';
         connection.query(query,[booking.name, booking.date, booking.amount, booking.katId, userId, booking.id], (error, results) => {
         if (error) {
           reject(error);

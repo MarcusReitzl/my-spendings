@@ -13,7 +13,7 @@ export class SettingsComponent implements OnInit {
   ngOnInit() {
   }
   onAddCat(inputKategorie){
-    this.kategorieService.onAddCategorie(inputKategorie.value);
+    this.kategorieService.addCategorie(inputKategorie.value);
   }
 
 }

@@ -14,57 +14,33 @@ export class KatSettingsComponent implements OnInit {
   categories: Categorie [];
   
 
-  constructor(private katService: CategorieService, private serverService:ServerService, private budgetService:BudgetService) { }
+  constructor(private categorieService: CategorieService, private serverService:ServerService, private budgetService:BudgetService) { }
 
   ngOnInit() {
-    this.categories = this.katService.getCategories();
-
-    this.katService.valueChanged.subscribe(
-      () => (this.categories= this.katService.getCategories())
+    this.categories = this.categorieService.getCategories();
+    this.categorieService.valueChanged.subscribe(
+      () => (this.categories = this.categorieService.getCategories())
     )
   }
 
   onAddCat(inputKategorie){
-    let data = { 'categorie': inputKategorie.value }
-        
-    for(let cat of this.categories){
-      if(cat.name === inputKategorie.value){
-          return;
-      }
-    }
-    
-    this.serverService.postCategorie(data).subscribe(
-      (response)=>{
-        this.katService.onAddCategorie(inputKategorie.value);
-        this.katService.setID(response[0]);
-      },
-      (error) => (console.log(error))
-      );
-  }
+    let data = { 
+      categorie: inputKategorie.value,
+      amount: 0
+     }
 
+    for(let cat of this.categories){
+        if(cat.name === inputKategorie.value){ return; }
+    }
+    this.categorieService.addCategorie(data);
+  }
+    
   onDelCategorie(inputSelKat){
     if(inputSelKat.value === "unselected"){
       return;
-    }else if (inputSelKat.value === "Diverse"){
-      return;
     }else if(confirm("Sind sie sicher das sie die Kategorie " + inputSelKat.value + " wirklich löschen möchten?")){
-      
-      for(let i = 0; i < this.categories.length; i++){
-        if(this.categories[i].name === inputSelKat.value){
-          let data = {
-            id: this.categories[i].id
-          }
-          console.log(this.categories[i].id);
-          
-          this.budgetService.deleteCategorieofBudget(this.categories[i].id);
-          this.categories.splice(i,1);
-          this.serverService.deleteCategorie(data).subscribe(
-            (response)=>(console.log(response))
-          );
-          
-          break;
-        } 
-      }
+          let id = this.categorieService.getIdOf(inputSelKat.value)
+          this.categorieService.deleteElement(id);
     }  
   }
 }

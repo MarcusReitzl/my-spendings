@@ -1,17 +1,26 @@
 import { Budget } from './shared/budget.model';
 import { Subject } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { ServerService } from './server.service';
+import { CategorieService } from './categorie.service';
 
-
+@Injectable()
 export class BudgetService {
- budgets: Budget[] = [];
+ budgets: any[] = [];
  
  budgetChanged = new Subject<Budget[]>();
 
+constructor(private serverService: ServerService){}
 
-    onAddBudget(budget: Budget){
-        this.budgets.push(budget);
+
+
+    onAddBudget(data){
+        this.serverService.postBudget(data).subscribe(
+        (budgets: any[]) => {
+        this.budgets = budgets    
         this.budgetChanged.next();
-    }
+    });
+}
 
     getBudgets(){
         return this.budgets;
@@ -23,11 +32,6 @@ export class BudgetService {
                 return bud;
             }
         }
-    }
-
-    setID(id){
-        this.budgets[this.budgets.length-1].budgetId = id;
-        this.budgetChanged.next(this.budgets);
     }
 
     setBudgets(budgets){
@@ -49,37 +53,12 @@ export class BudgetService {
     }
     
     deleteBudget(id){
-        for(let i =0; i < this.budgets.length; i++){
-            if(this.budgets[i].budgetId.toString() === id.toString()){
-                this.budgets.splice(i,1);
-                this.budgetChanged.next(this.budgets);
-                   
-            }
-        }
+        this.serverService.deleteBudget(id).subscribe((budgets: any[])=>{
+            this.budgets = budgets;
+            this.budgetChanged.next(this.budgets);
+        });            
     }
-
-    deleteCategorieofBudget(catId){
-        for(let budget of this.budgets){
-           for(let i = 0; i < budget.includedCategories.length; i++){
-                if(budget['includedCategories'][i]['id'] === catId){
-                    budget.includedCategories.splice(i,1);
-                    this.budgetChanged.next();
-                }
-            }
-        } 
     
-    }
-    addCategorie(id, data){
-
-        for(let budget of this.budgets){
-            if(budget.budgetId === id){
-                this.budgetChanged.next();
-            }
-            
-        }
-      
-    }
-
     getIdOf(name){
         for(let i = 0; i < this.budgets.length; i++){
             if(this.budgets[i].budgetName === name){
@@ -88,13 +67,25 @@ export class BudgetService {
         }
     }
 
-    setAmount(id, amount){
-        for(let budget of this.budgets){
-          if(budget.budgetId === id){
-                budget['value'] = amount;
-                
+    setAmount(data){
+        this.serverService.updateBudgetAmount(data).subscribe(
+            (budgets: any[]) => {
+                this.budgets = budgets;
+                this.budgetChanged.next(this.budgets);
             }
-        }
-        this.budgetChanged.next(this.budgets);
+        )
     }
+
+    getCategorieOfBudget(){
+        for(let budget of this.budgets){           
+            this.serverService.getCategoriesOfBudget(budget.budgetId).subscribe(
+                (response:any[]) => {
+
+                    budget.includedCategories = response;
+                }
+            );
+        }
+        // this.budgetChanged.next(this.budgets);
+    }
+
 }

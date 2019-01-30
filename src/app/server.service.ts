@@ -38,29 +38,27 @@ constructor(private http: HttpClient) { }
 
   getBudgets(){ return this.http.get(this.baseurl + 'budgets', this.httpOptions); };
 
+  getCategoriesOfBudget(id) { return this.http.get(this.baseurl + 'budgets/' + id, this.httpOptions); }; 
+
   postBudget(data){ return this.http.post(this.baseurl + 'budgets',  data, this.httpOptions); };
 
-  updateBudgetAmount(data){ return this.http.put(this.baseurl + 'budgets/update/' + data.id, data, this.httpOptions); };
+  updateBudgetAmount(data){ return this.http.put(this.baseurl + 'budgets/' + data.id, data, this.httpOptions); };
 
-  deleteBudget(data:number){ console.log(data+ ' und gefeuert'); return this.http.delete(this.baseurl + 'budgets/' + data, this.httpOptions); };
+  deleteBudget(data:number){ return this.http.delete(this.baseurl + 'budgets/' + data, this.httpOptions); };
 
 // ------------------------------------  Categorie Operations  -----------------------------------------
 
   getCategories(){ return this.http.get(this.baseurl + 'categories', this.httpOptions); };
 
-  postCategorie(data){ return this.http.post(this.baseurl + 'categories/save', data, this.httpOptions); };
+  getCategorie(id){ return this.http.get(this.baseurl + 'categories/' + id, this.httpOptions); };
 
-  deleteCategorie(data){ return this.http.delete(this.baseurl + 'categories/delete/' + data.id, this.httpOptions)}; 
+  postCategorie(data){ return this.http.post(this.baseurl + 'categories', data, this.httpOptions); };
 
-  updateCategorieAmount(data){ console.log(data); return this.http.put(this.baseurl + 'categories/update/' + data.katId, data, this.httpOptions);};
+  deleteCategorie(data){ return this.http.delete(this.baseurl + 'categories/' + data, this.httpOptions); }; 
 
-  addCategorieToBudget(data){ return this.http.put(this.baseurl + 'categories/budgetID/' + data.categorieID, data, this.httpOptions); };
+  updateCategorie(data){ console.log(data.katId); return this.http.put(this.baseurl + 'categories/' + data.katId, data, this.httpOptions); };
 
-  getCategorieOfBudget(data){ return this.http.get(this.baseurl + `categories/budgetCat/` + data, this.httpOptions); };
 
-  withdrawCategorie(data){ console.log(data);
-  
-   return this.http.put( this.baseurl + 'categories/withdraw/' + data.id, data, this.httpOptions); };
 
   // ------------------------------------  Set Token  -----------------------------------------
 

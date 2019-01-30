@@ -40,10 +40,7 @@ export class LoginComponent implements OnInit {
     // get Budgets
       this.serverService.getBudgets().subscribe(
       (budgets:any)=>{this.budgetService.setBudgets(budgets); 
-        for(let budget of budgets){
-          this.serverService.getCategorieOfBudget(budget.budgetId).subscribe(
-          (categorie)=>{console.log(categorie); this.budgetService.setincludedCategories(budget.budgetId,categorie);});
-        }  
+        this.budgetService.getCategorieOfBudget();
       });
 
     //get Bookings
@@ -59,10 +56,5 @@ export class LoginComponent implements OnInit {
       },
       (error) => (console.log(error))     
     );
-
-  
-    
-    
   }
-
 }

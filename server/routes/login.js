@@ -27,8 +27,9 @@ connection.query(query,[user, pass], (err, row) => {
             let userdata = {
             id: row[0].Id,
             username: row[0].username,
-        }
-        jwt.sign(userdata, 'secretkey' ,(err, token)=>{
+            };
+            
+            jwt.sign(userdata, 'secretkey' ,(err, token)=>{
             if(err){
                 res.sendStatus(500);
             }else{
