@@ -23,52 +23,55 @@
     </div>
   </form>    
 
-    <div class="row">
-      <div class="col-sm-1">
-        <button class="btn btn-primary" (click)="onSetFilter(inputFromDate, inputToDate, inputSelKat)">Set Filter</button>
-      </div>
-      <div class="col-sm-2">
-        <button class="btn btn-danger" (click)="onClearFilter()">Clear Filter</button>
-      </div>
+  <div class="row">
+    <div class="col-sm-1">
+      <button class="btn btn-primary" (click)="onSetFilter(inputFromDate, inputToDate, inputSelKat)">Set Filter</button>
     </div>
+    <div class="col-sm-2">
+      <button class="btn btn-danger" (click)="onClearFilter()">Clear Filter</button>
+    </div>
+  </div>
 
-   <hr>
+  <hr>
   
-   <ng-container *ngIf="showFilter === false">
-  
-    <div class="row">
-        <!-- <div class="col-sm-2"> {{ booking.date }} </div>
-        <div class="col-sm-2"> {{ booking.text }} </div>
-        <div class="col-sm-2"> {{ booking.value }} € </div>
-        <div class="col-sm-2"> {{ booking.kategorie }} </div> -->
-        <div class="list-group col-md-12" *ngIf="bookings.length > 0">
+  <ng-container *ngIf="showFilter === false">
+    <div class="row"  *ngIf="bookings.length > 0">
+      <div class="list-group col-md-12">
+        <ng-container *ngFor="let booking of bookings; let i=index">
         <a
         class="list-group-item"
-        *ngFor="let booking of bookings"
-        [routerLink]="['booking', booking.id]" 
-        >
-        <!-- [ngStyle]='{color: booking.type === "Einnahmen" ? "green" : "red" }' -->
-        <div class="row">
-        <div class="col-sm-2 col-sm-offset-2">{{ booking.date }}</div>
-        <div class="col-sm-2">{{ booking.text }}</div>
-        <div class="col-sm-2">{{ booking.value }} € </div>
-        <div class="col-sm-2">{{ booking.kategorie }}</div>
-      </div>
+        [routerLink]="['booking', booking.id]"
+        *ngIf="i >= page*15-15 && i < page*15 ">
+          <div class="row">
+            <div class="col-sm-2 col-sm-offset-2">{{ booking.date }}</div>
+            <div class="col-sm-2">{{ booking.text }}</div>
+            <div class="col-sm-2">{{ booking.value }} € </div>
+            <div class="col-sm-2">{{ booking.kategorie }}</div>
+          </div>
         </a>
+        </ng-container>
+      </div> 
+    </div>
+    <div class="row" >
+        <div class="col-xs-1 col-sm-offset-4">
+          <button type="button" class="btn btn-warning" (click)="previousPage()" [disabled]="page===1"> previous </button>
+        </div>
+        <div class="col-xs-1">
+          <p align="center">{{ page }}</p>
+        </div>
+        <div class="col-xs-1">
+          <button type="button" class="btn btn-warning" (click)="nextPage()" [disabled]=" (1.5)*page*10 >= bookings.length"> next </button>
+        </div>  
       </div>
-
-      
-  </div>
   </ng-container>
 
   <ng-container *ngIf="showFilter === true">
-    <div class="row">
-      <div class="list-group col-md-12" *ngIf="bookings.length > 0">
+    <div class="row" *ngIf="bookings.length > 0">
+      <div class="list-group col-md-12">
+        <ng-container  *ngFor="let booking of filterBookings; let i = index">
           <a class="list-group-item"
-          *ngFor="let booking of filterBookings"
-          [routerLink]="['booking', booking.id]" 
-          >
-          <!-- [ngStyle]='{color: booking.type === "Einnahmen" ? "green" : "red" }' -->
+          [routerLink]="['booking', booking.id]"
+          *ngIf="i >= (1.5)*page*10-15 && i < (1.5)*page*10 ">
           <div class="row">
           <div class="col-sm-2 col-sm-offset-2">{{ booking.date }}</div>
           <div class="col-sm-2">{{ booking.text }}</div>
@@ -76,10 +79,23 @@
           <div class="col-sm-2">{{ booking.kategorie }}</div>
         </div>
           </a>
-        </div>1
-  
-        
+        </ng-container>
+        </div>        
     </div>
+    <div class="row" >
+        <div class="col-xs-1 col-sm-offset-4">
+          <button type="button" class="btn btn-warning" (click)="previousPage()" [disabled]="page===1"> previous </button>
+        </div>
+        <div class="col-xs-1">
+          <p align="center">{{ page }}</p>
+        </div>
+        <div class="col-xs-1">
+          <button type="button" class="btn btn-warning" (click)="nextPage()" [disabled]=" (1.5)*page*10 >= filterBookings.length"> next </button>
+        </div>  
+      </div>
   </ng-container>
+
+
+
 
 </div>

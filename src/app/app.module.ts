@@ -23,6 +23,7 @@ import { ServerService } from './server.service';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { BookingComponent } from './bookings/booking/booking.component';
+import { FilterService } from './filter.service';
 
 
 const appRoutes: Routes = [
@@ -66,7 +67,7 @@ const appRoutes: Routes = [
     HttpClientModule
 
   ],
-  providers: [BookingService, CategorieService, BudgetService, ServerService],
+  providers: [BookingService, CategorieService, BudgetService, ServerService, FilterService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

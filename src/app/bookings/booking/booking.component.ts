@@ -35,7 +35,7 @@ constructor(private route: ActivatedRoute,
     this.categories = this.categorieService.getCategories();
     this.categorieService.valueChanged.subscribe(
       (categories)=>(this.categories=categories)
-    );      
+    );  
   }
 
   onChangeBooking(buchungstext, buchungsbetrag, kategorie){
@@ -94,22 +94,14 @@ constructor(private route: ActivatedRoute,
     }
   }  
     
-    
-    
-    
-    
-  
-
   onDeleteBooking(){
     let data = {
       katId: this.categorieService.getIdOf(this.booking.kategorie),
       categorie: this.booking.kategorie,
       amount: this.booking['value']*(-1)
     }
-
     this.bookingService.deleteBooking(this.booking.id);
     this.categorieService.updateSpendings(data);
-    
     this.router.navigate(['bookings']);
   }
 }
