@@ -50,7 +50,7 @@ function remove(id, userId) {
 
 function save(categorie,userId){
     if (!categorie.id) {
-   
+    console.log(categorie)
       return insert(categorie, userId);
     } else {
        
@@ -72,9 +72,7 @@ function insert(categorie, userId) {
 }
   
 function update(categorie, userId) {
-    console.log(categorie)
     if(categorie.budgetId === undefined){
-        console.log('budgetid anderer zweig?')
         return new Promise((resolve, reject) => {
             const query =
             'UPDATE categories SET amount = ? WHERE userID = ? AND Id = ?';

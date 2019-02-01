@@ -25,10 +25,10 @@ export class KatSettingsComponent implements OnInit {
 
   onAddCat(inputKategorie){
     let data = { 
-      categorie: inputKategorie.value,
+      name: inputKategorie.value,
       amount: 0
      }
-
+    
     for(let cat of this.categories){
         if(cat.name === inputKategorie.value){ return; }
     }

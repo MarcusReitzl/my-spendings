@@ -13,13 +13,11 @@ constructor(private serverService: ServerService,
     private budgetService: BudgetService){}  
     
 addCategorie(data){
-    let categories: any[];
-    this.serverService.updateCategorie(data).subscribe(
+    
+    this.serverService.postCategorie(data).subscribe(
         (categories: any[])=>{
             this.categorie = categories;
             this.valueChanged.next(this.categorie);
-            
-
         },
         (error) => (console.log(error))
         );

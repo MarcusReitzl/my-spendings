@@ -56,9 +56,7 @@ constructor(private http: HttpClient) { }
 
   deleteCategorie(data){ return this.http.delete(this.baseurl + 'categories/' + data, this.httpOptions); }; 
 
-  updateCategorie(data){ console.log(data.katId); return this.http.put(this.baseurl + 'categories/' + data.katId, data, this.httpOptions); };
-
-
+  updateCategorie(data){ return this.http.put(this.baseurl + 'categories/' + data.katId, data, this.httpOptions); };
 
   // ------------------------------------  Set Token  -----------------------------------------
 

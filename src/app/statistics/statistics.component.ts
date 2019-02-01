@@ -113,8 +113,7 @@ dataAvailable: any[] = [];
       if(fromDate.value !== "" || toDate.value !== ""){
         let bookings = this.bookingService.getBookings();
         bookings = this.filterService.filterArray(fromDate.value, toDate.value, "unselected", bookings)  
-        console.log(bookings);
-        
+  
         for(let budget of this.budgets){
           if(budget.budgetName === budgetInput.value){ 
             for(let categorie of budget.includedCategories){
@@ -123,8 +122,6 @@ dataAvailable: any[] = [];
               for(let booking of bookings){
                 if(booking.kategorie === categorie.name){
                   counter = counter + booking.value;          
-                  console.log(counter);
-                  
                 }
               }
               filteredArray.push(counter);

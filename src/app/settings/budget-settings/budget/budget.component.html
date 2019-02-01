@@ -1,72 +1,76 @@
-<ng-container *ngIf="budget">
-
-<div class="row">
-  <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2"><h3>{{ budget.budgetName }}</h3></div>
-</div>
-<br>
-<div class="row">
-  <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-    <label>Budget-Grenze:</label>
-    <input type="number" [value]=budget.value #inputBudgetAmount>
-  </div>
-<br>
-  <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-    <button class="btn btn-primary" (click)="onChangeAmount(inputBudgetAmount)">ändern</button>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <h3>{{ budget.budgetName }}</h3>
+    </div>
   </div>
 
-  <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-    <button input="button" class="btn btn-danger" (click)="onDeleteBudget()">Budget löschen</button>
+  <div class="row">
+    <div class="form-group col-xs-12 col-sm-10 col-md-4 col-sm-offset-1 col-md-offset-2">
+      <label>Budget-Grenze:</label>
+      <input class="form-control" type="number" [value]=budget.value #inputBudgetAmount>
+    </div>
+  </div>
+  <br>
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <button class="btn btn-primary" (click)="onChangeAmount(inputBudgetAmount)">ändern</button>
+      <button input="button" class="btn btn-danger" (click)="onDeleteBudget()">Budget löschen</button>
+    </div>
   </div>
 
   <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2" *ngIf="valueChanged===true">
     <br>Budgetobergrenze wurde erfolgreich geändert!
   </div>
 
-  <div class="col-xs-12 col-sm-8 col-md-8 col-sm-offset-5 col-md-offset-0"><hr width="70%"></div>
+  <div class="col-xs-12 col-sm-8 col-md-8 col-sm-offset-5 col-md-offset-0">
+    <hr width="70%">
+  </div>
 
-</div>
 
-<div class="row">
+
+  <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
       <h3>Kategorie zu Budget hinzufügen</h3>
       <br>
     </div>
 
-  <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-    <label>Kategorie:</label>
-    <select #inputCat>
-      <option *ngFor="let cat of categories" [value]="cat.name">{{ cat.name }}</option>
-    </select>
+    <div class="form-group col-xs-12 col-sm-10 col-md-4 col-sm-offset-1 col-md-offset-2">
+      <label>Kategorie:</label>
+      <select class="form-control" #inputCat>
+        <option *ngFor="let cat of categories" [value]="cat.name">{{ cat.name }}</option>
+      </select>
+    </div>
+
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <button class="btn btn-primary" (click)="addCategorieToBudget(inputCat)">Hinzufügen</button>
+    </div>
+
+    <div class="col-xs-12 col-sm-8 col-md-8 col-sm-offset-5 col-md-offset-0">
+      <hr width="70%">
+    </div>
   </div>
 
-  <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-    <button class="btn btn-primary" (click)="addCategorieToBudget(inputCat)">Hinzufügen</button>
-  </div>
-
-  <div class="col-xs-12 col-sm-8 col-md-8 col-sm-offset-5 col-md-offset-0"><hr width="70%"></div>
-</div>
-
-<div class="row">
+  <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
       <h3>Kategorien</h3>
       <br>
     </div>
 
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-0">
+        <a class="list-group-item col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-0" *ngFor="let budCat of budget.includedCategories"
+          (click)="onWithDrawCat(budCat.Id)">{{ budCat.name }}</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-8 col-md-8 col-sm-offset-5 col-md-offset-0">
+    <hr width="70%">
+  </div>
 
-  <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-  
- 
-    <a class="list-group-item col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-0"  
-    *ngFor="let budCat of budget.includedCategories" (click)="onWithDrawCat(budCat.Id)">{{ budCat.name }}</a>
 
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-2 col-md-offset-1"><a routerLink="/settings/budgets">zurück</a></div>
+  </div>
 </div>
-
-  <div class="col-xs-12 col-sm-8 col-md-8 col-sm-offset-5 col-md-offset-0"><hr width="70%"></div>
-
-</div>
-
-<div class="row">
-  <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-2 col-md-offset-1"><a routerLink="/settings/budgets">zurück</a></div>
-</div>
-
-</ng-container>

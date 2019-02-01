@@ -42,13 +42,13 @@ function listAction(request, response) {
   }
 
   function updateAction(request, response) {
+
     const categorie = {
       id: request.params.id,
       name: request.body.name,
       amount: request.body.amount,
       budgetId: request.body.budgetId
     };
-  
     model.save(categorie,request.userId).then(
       categorie => response.status(200).json(categorie),
       error => response.status(500).json(error),
@@ -57,7 +57,7 @@ function listAction(request, response) {
 
   function createAction(request, response) {
     const categorie = {
-        name: request.body.categorie,
+        name: request.body.name,
         amount: request.body.amount
     };
     
