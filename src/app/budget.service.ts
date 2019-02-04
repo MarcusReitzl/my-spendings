@@ -1,3 +1,8 @@
+/*
+Kümmert sich im Angular um alle Befehle für die Budgets
+ */
+
+
 import { Budget } from './shared/budget.model';
 import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
@@ -13,7 +18,9 @@ export class BudgetService {
 constructor(private serverService: ServerService){}
 
 
-
+    /*
+    pusht neues Budget zum Server
+     */
     onAddBudget(data){
         this.serverService.postBudget(data).subscribe(
         (budgets: any[]) => {
@@ -39,6 +46,9 @@ constructor(private serverService: ServerService){}
         this.budgetChanged.next(this.budgets);
     }
 
+    /*
+    Holt sich aus den Kategorien-Array alle Kategorieren für dieses Budget
+     */
     setincludedCategories(id, categories){
         let cats = [];
         for(let cat of categories){
@@ -58,7 +68,9 @@ constructor(private serverService: ServerService){}
             this.budgetChanged.next(this.budgets);
         });            
     }
-    
+    /*
+    Liefert die Id eines Budgets abhängig vom Namen
+     */
     getIdOf(name){
         for(let i = 0; i < this.budgets.length; i++){
             if(this.budgets[i].budgetName === name){
@@ -75,7 +87,9 @@ constructor(private serverService: ServerService){}
             }
         )
     }
-
+   /*
+   Holt sich vom Server alle Kategorien zu diesen Budget
+    */
     getCategorieOfBudget(){
         for(let budget of this.budgets){           
             this.serverService.getCategoriesOfBudget(budget.budgetId).subscribe(

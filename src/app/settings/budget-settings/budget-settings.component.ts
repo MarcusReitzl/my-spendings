@@ -19,7 +19,9 @@ export class BudgetSettingsComponent implements OnInit {
       ()=> (this.budgets = this.budgetService.getBudgets())
     );
   }
-
+  /*
+  Fügt ein Budget hinzu, ruft im budgetService die onAddBudget auf
+   */
   onAddBudget(inputName, inputAmount){
     let data = {
       name: inputName.value,

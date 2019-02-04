@@ -1,3 +1,8 @@
+/*
+Kategorie-Component
+Hier werden die Einstellungen für eine Kategorie bearbeitet
+ */
+
 import { Component, OnInit } from '@angular/core';
 import { CategorieService } from 'src/app/categorie.service';
 import { Categorie } from 'src/app/shared/categorie.model';
@@ -23,6 +28,9 @@ export class KatSettingsComponent implements OnInit {
     )
   }
 
+  /*
+  Ruft die addCategorie vom CategorieService auf um die neue Kategorie hinzuzufügen
+   */
   onAddCat(inputKategorie){
     let data = { 
       name: inputKategorie.value,
@@ -34,7 +42,9 @@ export class KatSettingsComponent implements OnInit {
     }
     this.categorieService.addCategorie(data);
   }
-    
+    /*
+    Ruft die deleteElement vom CategorieService auf um die ausgewählte Kategorie zu löschen
+     */
   onDelCategorie(inputSelKat){
     if(inputSelKat.value === "unselected"){
       return;

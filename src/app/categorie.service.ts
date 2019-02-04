@@ -1,3 +1,7 @@
+/*
+Kümmert sich im Angular um alle Befehle für die Categories
+ */
+
 import { Categorie } from './shared/categorie.model';
 import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
@@ -11,7 +15,10 @@ export class CategorieService{
 
 constructor(private serverService: ServerService,
     private budgetService: BudgetService){}  
-    
+
+/*
+Fügt eine Kategorie hinzu (schickt sie zum Server)
+ */
 addCategorie(data){
     
     this.serverService.postCategorie(data).subscribe(
@@ -24,7 +31,10 @@ addCategorie(data){
 }
 
 getCategories(){ return this.categorie; }
-  
+
+/*
+Kümmert sich darum das die Werte in den Kategorieren aktuell bleiben. Zur Verwendung von de Charts.
+*/
 updateSpendings(data){
     console.log(data);
     
@@ -49,11 +59,14 @@ deleteElement(id){
             this.valueChanged.next(this.categorie)}
       );
 }
+
 setCategorie(categorie: any[]){  
     this.categorie = categorie
     this.valueChanged.next(this.categorie);
     }
-    
+/*
+Liefert die Id einer Kategorie über den Namen
+ */
 getIdOf(categorie){
     for(let cat of this.categorie){
         if(cat.name === categorie){
@@ -70,6 +83,9 @@ getElement(name){
     }
 }
 
+/*
+Fügt eine Kategorie zu einem Budget hinzu
+ */
 addCategorieToBudget(data){
     this.serverService.updateCategorie(data).subscribe(
         (categories: any[]) => {
@@ -78,6 +94,9 @@ addCategorieToBudget(data){
         });   
 }
 
+/*
+Entfernt eine Kategorie von einem Budget
+ */
 withdrawCategorieFromBudget(id){
     let data={
         budgetId: 0,

@@ -1,3 +1,7 @@
+/*
+Im Model werden die Datenbankzugriffe für die Funktionen im Controller definiert.
+ */
+
 const connection = require("../db").getDb();
 
 function getAll(userId) {
@@ -89,4 +93,3 @@ module.exports = {
     save,
     get
   };
-  
