@@ -7,6 +7,6 @@
         "host": "localhost",
         "user": "root",
         "password": "",
-        "db": "myspendings_2"
+        "db": "myDB"
     }
 }

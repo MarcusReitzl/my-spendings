@@ -1,5 +1,6 @@
 const connection = require("../db").getDb();
 
+//Übernimmt Informationen von der controller und baut sie in die SQL Abfragen ein!
 
 function getAll(userId) {
 

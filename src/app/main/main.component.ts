@@ -59,6 +59,9 @@ export class MainComponent implements OnInit {
     );    
   }
 
+  //Bei neu hinzugefügter Buchung wird auf Gültigkeit überprüft
+  //es werden die JSON Objekte für Buchung selbst und für Änderung der Kategorie angelegt und an den Service übergeben
+  //Die Services leiten es an den Server weiter
   onAddAusgaben(inputText, inputNumber, inputCategorie) {
     if(inputCategorie.value === 'unselected'){
       this.bookingResponse = 'Bitte Kategorie auswählen.'

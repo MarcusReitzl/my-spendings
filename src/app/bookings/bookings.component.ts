@@ -26,11 +26,12 @@ export class BookingsComponent implements OnInit {
     
     private filterService: FilterService) { }
 
+    //Wenn der Screen aufgerufen wird startet die ngOnInit welche die Buchungen und die Kategorien aus den jeweiligen Services holt
   ngOnInit() {
     this.bookings = this.bookingService.getBookings(); 
     this.categorieArray = this.kategorieService.getCategories();
 
-    this.kategorieService.valueChanged.subscribe(
+    this.kategorieService.valueChanged.subscribe(   //subscribe für Information über Änderungen
       (categories) => {   
         this.categorieArray = categories;
       });
@@ -48,24 +49,26 @@ export class BookingsComponent implements OnInit {
     );
   }
 
+    //Legt den Filter mit den ausgewählten Bedingungen Über die Buchungen
   onSetFilter(inputFromDate, inputToDate, inputSelKat){
     this.filterBookings = this.filterService.filterArray(inputFromDate.value, inputToDate.value, inputSelKat.value, this.bookings);
     this.showFilter = true;
   }
-
+  // entferne alle Filter
   onClearFilter(){
       this.showFilter = false;
       this.filterBookings = [];  
   }   
 
-  setDisplayArry(){
-    let fromIndex = this.page * 10 - 10
-    let toIndex
-    this.displayArray = []
-    for(fromIndex; fromIndex < toIndex; fromIndex++){
-      this.displayArray.push(this.bookings[fromIndex]);
-    }
-  }
+  // // 
+  // setDisplayArry(){
+  //   let fromIndex = this.page * 10 - 10
+  //   let toIndex
+  //   this.displayArray = []
+  //   for(fromIndex; fromIndex < toIndex; fromIndex++){
+  //     this.displayArray.push(this.bookings[fromIndex]);
+  //   }
+  // }
 
   nextPage(){
     this.page++;

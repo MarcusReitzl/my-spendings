@@ -1,7 +1,7 @@
 const model = require('./model');
 const jwt = require('jsonwebtoken');
 
-
+//Gibt alle Buchungen des Users an den Client weiter
 function listAction(request, response) {
   model.getAll(request.userId).then(
     bookings => {
@@ -16,6 +16,8 @@ function listAction(request, response) {
 
   );
 }
+
+//Gibt auch einzelne Buchungen an den Client weiter
 function detailAction(request, response) {
   let id = parseInt(request.params.id, 10);
 
@@ -33,6 +35,7 @@ function detailAction(request, response) {
   );
 }
 
+//Löscht Buchung aus der DB mit der übereinstimmenden ID
 function deleteAction(request, response) {
   let id = parseInt(request.params.id, 10);
   model.remove(id, request.userId).then(
@@ -43,6 +46,7 @@ function deleteAction(request, response) {
   );
 }
 
+//Aktualisiert eine Buchung in der DB
 function updateAction(request, response) {
   const booking = {
     id: request.params.id,
@@ -57,6 +61,7 @@ function updateAction(request, response) {
   );
 }
 
+//Fügt der DB eine neue Buchung hinzu
 function createAction(request, response) {
 
   const booking = {
@@ -73,7 +78,7 @@ function createAction(request, response) {
   );
   
 }
-
+//export für Aufruf
 module.exports = {
   listAction,
   detailAction,
