@@ -1,41 +1,44 @@
+// by David Langmeier
+//
+// get register data from client
+// query if user is already existing
+// if user not existing -> send insertquery to database
+
 const Router = require('express').Router;
 const router = Router();
 const bodyParser = require('body-parser')
 const connection = require("../db").getDb();
 
 router.use(bodyParser.json());
-router.use(bodyParser.urlencoded({extended:false}));
+router.use(bodyParser.urlencoded({extended: false}));
 
+router.post('/', (req, res) => {
+  user = req.body.username;
+  pass = req.body.password;
+  name = req.body.lastname;
+  firstname = req.body.firstname;
 
-router.post('/',(req,res)=>{
-user = req.body.username;
-pass = req.body.password;
-name = req.body.lastname;
-firstname = req.body.firstname;
-
-query = `SELECT username
+  query = `SELECT username
          FROM users
          WHERE username = ?`
 
-connection.query(query,[user],(err, row)=>{
-    if(err){
-        res.sendStatus(500);
-    } else if(row.length > 0) {
-        res.json({message: 'User already exists!'})
+  connection.query(query, [user], (err, row) => {
+    if (err) {
+      res.sendStatus(500);
+    } else if (row.length > 0) {
+      res.json({message: 'User already exists!'})
     } else {
-    insertquery = `INSERT INTO users (username, userpassword, name, firstname)
-    VALUES (?, ?, ?, ?);`
-    connection.query(insertquery,[user, pass, name, firstname], (err)=>{
-        if(err){
-            res.sendStatus(500);
+      insertquery = `INSERT INTO users (username, userpassword, name, firstname)
+      VALUES (?, ?, ?, ?);`
+      connection.query(insertquery, [user, pass, name, firstname], (err) => {
+        if (err) {
+          res.sendStatus(500);
         } else {
-           res.status(200).json({message:"Went well"}); 
+          res.status(200).json({message: "Went well"});
         }
-    });
+      });
     }
+  });
 });
-});
-
-
 
 module.exports = router;
